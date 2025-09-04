@@ -38,6 +38,14 @@ button:active {
   box-shadow: none;           /* 影を消す */
 }
 
+.levelSet {
+  display: flex;
+  align-items: center;
+  margin-top: 1em;
+  padding: 0.2em 0;
+  line-height: 1.4;
+}
+
 button.adjustBtn {
   width: 40px;
   font-size: 16px;
