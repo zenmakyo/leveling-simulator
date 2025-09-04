@@ -34,7 +34,7 @@ levelBox {
   overflow: hidden;
 }
 
-levelBpx button, levelBox input {
+levelBox button, levelBox input {
   margin: 0;
   border: 1px solid #c0c0c0;
 }
