@@ -29,7 +29,8 @@ input {
 }
 
 button{
-  border: 1px solid #c0c0c0;
+  background-color: #c0c0c0;
+  border: 1px solid #a9a9a9;
   transition: transform 0.1s;
 }
 
@@ -51,7 +52,6 @@ button:active {
 button.adjustBtn {
   width: 40px;
   font-size: 16px;
-  background-color: #f5f5f5;
   padding: 5px;
   text-align: center;
   border-radius: 5px;
@@ -105,6 +105,33 @@ button.adjustBtn {
 .targetSuggestions div {
   padding: 5px;
   cursor: pointer;
+}
+
+.itemBox {
+  display: flex;
+  gap: 10px;
+  margin-top: 1em;
+}
+
+.itemBox input[type="radio"] {
+  display: none; /* ラジオボタン自体を非表示 */
+}
+
+.itemBox label {
+  padding: 5px 10px;
+  background-color: #c0c0c0;
+  border: 1px solid #a9a9a9;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.itemBox input[type="radio"]:checked + span,
+.itemBox input[type="radio"]:checked + label {
+  color: #ffffff;
+  background-color: #000080; /* 選択中の色 */
+  border-color: #87ceeb;
 }
 
 button.calBtn {
