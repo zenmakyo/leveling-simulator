@@ -126,10 +126,13 @@ button.adjustBtn {
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-.itemBox input[type="radio"]:checked + span,
+.itemBox input[type="radio"]:checked + span {
+  background-color: #000080; /* 選択中の色 */
+  border-color: #87ceeb;
+}
 .itemBox input[type="radio"]:checked + label {
   color: #ffffff;
   background-color: #000080; /* 選択中の色 */
