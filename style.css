@@ -25,7 +25,7 @@ input {
   text-align: center; /* 中央揃え */
 }
 
-button {
+button.levadBtn {
   width: 20px;
   padding: 5px;
   text-align: center;
