@@ -68,6 +68,42 @@ button.adjustBtn {
   box-sizing: border-box;
 }
 
+.targetBox {
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  justfy-content: center;
+  position: relative;
+}
+
+.targetInput {
+  font-size: 16px;
+  height: 28px;
+  padding: 5px;
+  border: 1px solid #c0c0c0;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.targetSuggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 1px solid #c0c0c0;
+  border-radius: 5px;
+  display: none;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 16px;
+  z-index: 1000;
+}
+
+.targetSuggestions div {
+  padding: 5px;
+  cursor: pointer;
+}
+
 button.calBtn {
   padding: 8px 16px;         /* 上下8px、左右16pxの内側余白 */
   margin-top: 10px;           /* 上の要素との間隔10px */
