@@ -42,9 +42,9 @@ button:active {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(12px, 2vw, 16px);
+  font-size: 16px;
   margin-top: 1em;
-  gap: clamp(1px, 1vw, 5px);
+  gap: clamp(0.1px, 1vw, 5px);
   line-height: 1.4;
 }
 
@@ -78,9 +78,9 @@ button.adjustBtn {
 }
 
 .targetInput {
-  font-size: clamp(12px, 2vw, 16px);
+  font-size: 16px;
   height: 28px;
-  width: 280px;
+  width: 270px;
   margin-left: 0.1em;
   padding: 5px;
   border: 1px solid #c0c0c0;
