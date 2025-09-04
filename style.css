@@ -24,7 +24,7 @@ input {
   font-size: 16px; /* 文字サイズ */
   padding: 1px;  /* 内側の余白（文字と枠の間） */
   text-align: center; /* 中央揃え */
-  gap: 0;
+  border: 1px solid #c0c0c0;
 }
 
 
@@ -36,7 +36,7 @@ button.adjustBtn {
   text-align: center;
   border-radius: 0;
   cursor: pointer;
-  gap: 0;
+  border: 1px solid #c0c0c0;
 }
 
 button.calBtn {
