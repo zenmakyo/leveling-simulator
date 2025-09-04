@@ -2,10 +2,11 @@ body {
   background-color: #e6e6fa; /*　背景色　*/
   color: #000000; /* 文字色 */
   font-family: sans-serif; /* フォント */
+  text-align: center; /* 中央揃え */
 }
 
 h1 {
-      font-family: 'Zen Kurenaido', sans-serif;
+      font-family: 'Zen Kurenaido', sans-serif; /* タイトルフォント */
       font-size: 2rem;
       color: white;
       -webkit-text-stroke: 3px black;
@@ -15,19 +16,25 @@ h1 {
       line-height: 1.1;
       margin-top: 0.3rem;
       margin-bottom: 0.3rem;
+      background-color: #ffffe0;
 }
 
 input {
-  width: 60px;   /* 横幅60ピクセル */
-  padding: 5px;  /* 内側の余白（文字と枠の間）を5ピクセル */
-  margin: 5px;   /* 外側の余白（隣の要素との間）を5ピクセル */
+  width: 60px;   /* 横幅 */
+  padding: 1px;  /* 内側の余白（文字と枠の間） */
+  text-align: center; /* 中央揃え */
 }
 
 button {
+  width: 20px;
+  padding: 5px;
+  text-align: center;
+}
+
+button.calBtn {
   padding: 8px 16px;         /* 上下8px、左右16pxの内側余白 */
   margin-top: 10px;           /* 上の要素との間隔10px */
   background-color: #ffcc00;  /* 背景色を黄色に */
-  border: none;               /* ボタンの枠線を消す */
   border-radius: 5px;         /* 角を丸くする */
   cursor: pointer;            /* マウスを重ねると指マークになる */
 }
