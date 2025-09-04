@@ -79,6 +79,7 @@ button.adjustBtn {
 .targetInput {
   font-size: 16px;
   height: 28px;
+  width: 200px;
   padding: 5px;
   border: 1px solid #c0c0c0;
   border-radius: 5px;
