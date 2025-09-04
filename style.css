@@ -57,6 +57,12 @@ button.adjustBtn {
   cursor: pointer;
 }
 
+#rebirth {
+  font-size: 16px;
+  padding: 5px;
+  margin-left: 2.5em;
+}
+
 button.calBtn {
   padding: 8px 16px;         /* 上下8px、左右16pxの内側余白 */
   margin-top: 10px;           /* 上の要素との間隔10px */
