@@ -43,7 +43,7 @@ button:active {
   align-items: center;
   justify-content: center;
   margin-top: 1em;
-  gap: 5px;
+  gap: clamp(1px, 1vw, 5px);
   line-height: 1.4;
 }
 
