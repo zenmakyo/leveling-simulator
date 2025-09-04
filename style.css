@@ -30,10 +30,10 @@ input {
 
 button.adjustBtn {
   width: 40px;
-  font-size: 14px;
-  padding: 1px;
+  font-size: 16px;
+  padding: 5px;
   text-align: center;
-  border-radius: 0;
+  border-radius: 5;
   cursor: pointer;
   border: 1px solid #c0c0c0;
 }
