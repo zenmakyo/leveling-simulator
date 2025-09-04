@@ -41,8 +41,9 @@ button:active {
 .levelSet {
   display: flex;
   align-items: center;
+  justify-content: center;
   margin-top: 1em;
-  padding: 0.2em 0;
+  gap: 5px;
   line-height: 1.4;
 }
 
