@@ -20,15 +20,17 @@ h1 {
 }
 
 p {
+  font-size: 2px;
   font-family: 'Zen Kurenaido', sans-serif;
 }
 
 input {
   width: 60px;   /* 横幅 */
   font-size: 16px; /* 文字サイズ */
-  padding: 1px;  /* 内側の余白（文字と枠の間） */
+  padding: 5px;  /* 内側の余白（文字と枠の間） */
   text-align: center; /* 中央揃え */
   border: 1px solid #c0c0c0;
+  border-radius: 5px;
 }
 
 
@@ -37,7 +39,7 @@ button.adjustBtn {
   font-size: 16px;
   padding: 5px;
   text-align: center;
-  border-radius: 5;
+  border-radius: 5px;
   cursor: pointer;
   border: 1px solid #c0c0c0;
 }
