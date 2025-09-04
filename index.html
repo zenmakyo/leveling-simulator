@@ -10,21 +10,21 @@
 <body>
   <h1>討伐回数計算</h1>
   
-  <p>現在のレベル：
+  <div class="levelSet">現在のレベル：
     <button class="adjustBtn" data-value="-20">-20</button>
     <button class="adjustBtn" data-value="-5">-5</button>
-    <input type="number" id="currentLevel" min="1" value="1">
+    <input type="number" id="currentLevel" min="1" step="1">
     <button class="adjustBtn" data-value="5">+5</button>
     <button class="adjustBtn" data-value="20">+20</button>
-  </p>
+  </div>
 
-  <p>目標のレベル：
+  <div class="levelSet">目標のレベル：
     <button class="adjustBtn" data-value="-20">-20</button>
     <button class="adjustBtn" data-value="-5">-5</button>
-    <input type="number" id="currentLevel" min="1" value="1">
+    <input type="number" id="targetLevel" min="1" value="1">
     <button class="adjustBtn" data-value="5">+5</button>
     <button class="adjustBtn" data-value="20">+20</button>
-  </p>
+  </div>
 
 
   <button class="calBtn" id="calcBtn">計算する</button>
