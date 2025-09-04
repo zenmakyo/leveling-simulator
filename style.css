@@ -19,6 +19,10 @@ h1 {
   background-color: #ffffe0;
 }
 
+p {
+  font-family: 'Zen Kurenaido', sans-serif;
+}
+
 input {
   width: 60px;   /* 横幅 */
   font-size: 16px; /* 文字サイズ */
