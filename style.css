@@ -24,17 +24,28 @@ input {
   font-size: 16px; /* 文字サイズ */
   padding: 1px;  /* 内側の余白（文字と枠の間） */
   text-align: center; /* 中央揃え */
+  border: 2px solid #000000;
+}
+
+levelBox {
+  display: frex;
+  gap: 0;
+  border: 2px solid #000000;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 button.adjustBtn {
   width: 40px;
   color: #000000;
+  border: 2px solid #000000;
   font-size: 14px;
   padding: 1px;
   text-align: center;
   border-radius: 0;
   cursor: pointer;
   gap: 0;
+  box-shadow: none;
 }
 
 button.calBtn {
@@ -43,4 +54,5 @@ button.calBtn {
   background-color: #ffcc00;  /* 背景色を黄色に */
   border-radius: 5px;         /* 角を丸くする */
   cursor: pointer;            /* マウスを重ねると指マークになる */
+  box-shadow: none;
 }
