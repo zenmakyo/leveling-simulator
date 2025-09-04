@@ -21,12 +21,14 @@ h1 {
 
 input {
   width: 60px;   /* 横幅 */
+  font-size: 16px; /* 文字サイズ */
   padding: 1px;  /* 内側の余白（文字と枠の間） */
   text-align: center; /* 中央揃え */
 }
 
-button.levadBtn {
+button.adjustBtn {
   width: 20px;
+  font-size: 14px;
   padding: 5px;
   text-align: center;
 }
