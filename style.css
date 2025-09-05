@@ -143,7 +143,7 @@ button.adjustBtn {
   align-items: center;
   justify-content: center; /* 真ん中寄せ */
   gap: clamp(0.1px, 1vw, 5px);               /* ボタン間の余白 */
-  margin-top: 1em;
+  margin-top: 0.5em;
 }
 
 /* ラジオボタン非表示 */
@@ -175,7 +175,7 @@ button.adjustBtn {
   align-items: center;
   justify-content: center;
   gap: 20px; /* 強化値と参加枠数の間の余白 */
-  margin-top: 1em;
+  margin-top: 0.5em;
 }
 
 .optionBox div {
