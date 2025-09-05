@@ -107,14 +107,6 @@ button.adjustBtn {
   cursor: pointer;
 }
 
-.itemBox {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 1em;
-}
-
 .itemBox input[type="radio"] {
   display: none; /* ラジオボタン自体を非表示 */
 }
@@ -130,10 +122,10 @@ button.adjustBtn {
   transition: background-color 0.2s, border-color 0.2s;
 }
 
-.itemBox label:has(input[type="radio"]:checked) {
-  background-color: #000080; /* 選択中の色 */
+.itemBox input[type="radio"]:checked + label {
+  background-color: #000080;
   border-color: #87ceeb;
-  color: #ffffff;             /* 文字色 */
+  color: #ffffff;
 }
 
 button.calBtn {
