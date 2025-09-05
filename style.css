@@ -132,6 +132,12 @@ button.adjustBtn {
   color: #ffffff;
 }
 
+.centerLeft {
+  text-align: center;
+  position: relative;
+  left: -100px;
+}
+
 button.calBtn {
   padding: 8px 16px;         /* 上下8px、左右16pxの内側余白 */
   margin-top: 10px;           /* 上の要素との間隔10px */
