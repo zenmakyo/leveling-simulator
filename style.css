@@ -138,6 +138,33 @@ button.adjustBtn {
   left: -70px;
 }
 
+.abilityBox {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* 真ん中寄せ */
+  gap: 10px;               /* ボタン間の余白 */
+  margin-top: 1em;
+}
+
+.abilityBox p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.optionBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* 強化値と参加枠数の間の余白 */
+  margin-top: 1em;
+}
+
+.optionBox div {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
 button.calBtn {
   padding: 8px 16px;         /* 上下8px、左右16pxの内側余白 */
   margin-top: 10px;           /* 上の要素との間隔10px */
