@@ -42,8 +42,9 @@ const targetExpTable = {
   "闇黒龍": 497,
   "叛逆の断罪者": 326,
   "盲鬼ト浮鬼": 275
-  
 };
+
+const wordList = Object.keys(targetExpTable);
 
 const targetInput = document.querySelector(".targetInput");
 const suggestionsBox = document.querySelector(".targetSuggestions");
@@ -53,20 +54,17 @@ function updateSuggestions() {
   let matches;
 
   if (value === "") {
-    // 未入力時は全件表示
-    matches = wordList;
+    matches = wordList; // 全件表示
   } else {
-    // 部分一致
     matches = wordList.filter(word => word.toLowerCase().includes(value));
   }
 
-  // 候補表示
   suggestionsBox.innerHTML = "";
   if (matches.length > 0) {
     matches.forEach(word => {
       const div = document.createElement("div");
       div.textContent = word;
-      div.addEventListener("click", () => {
+      div.addEventListener("mousedown", () => { // click ではなく mousedown
         targetInput.value = word;
         suggestionsBox.style.display = "none";
       });
@@ -78,11 +76,8 @@ function updateSuggestions() {
   }
 }
 
-// 入力中
 targetInput.addEventListener("input", updateSuggestions);
-// フォーカス時
 targetInput.addEventListener("focus", updateSuggestions);
-// フォーカス外れたとき
 targetInput.addEventListener("blur", () => {
   setTimeout(() => { suggestionsBox.style.display = "none"; }, 100);
 });
