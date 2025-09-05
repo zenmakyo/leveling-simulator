@@ -191,7 +191,7 @@ button.adjustBtn {
 }
 
 button.calBtn {
-  padding: 5px 60px;         /* 上下5px、左右20pxの内側余白 */
+  padding: 5px 55px;         /* 上下5px、左右20pxの内側余白 */
   background-color: #fffacd;  /* 背景色を黄色に */
   border-radius: 5px;         /* 角を丸くする */
   cursor: pointer;            /* マウスを重ねると指マークになる */
@@ -199,7 +199,7 @@ button.calBtn {
 }
 
 button.resetBtn {
-  padding: 5px 60px;         /* 上下8px、左右16pxの内側余白 */
+  padding: 5px 55px;         /* 上下8px、左右16pxの内側余白 */
   background-color: #faebd7;
   border-radius: 5px;         /* 角を丸くする */
   cursor: pointer;            /* マウスを重ねると指マークになる */
