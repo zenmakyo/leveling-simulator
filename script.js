@@ -1,4 +1,10 @@
 <script>
+function updateOptions() {
+  const selected1 = document.querySelector('input[name="ability1"]:checked')?.value;
+  const selected2 = document.querySelector('input[name="ability2"]:checked')?.value;
+  console.log(selected1, selected2); // ←確認用
+}
+  
 document.addEventListener("DOMContentLoaded", () => {
   const abilityRadios1 = document.querySelectorAll('input[name="ability1"]');
   const abilityRadios2 = document.querySelectorAll('input[name="ability2"]');
