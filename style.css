@@ -185,10 +185,21 @@ button.adjustBtn {
   gap: 5px;
 }
 
+.bottomBox {
+  align-items: center;
+  margin-top: 1em;
+}
+
 button.calBtn {
-  padding: 8px 16px;         /* 上下8px、左右16pxの内側余白 */
-  margin-top: 10px;           /* 上の要素との間隔10px */
-  background-color: #ffcc00;  /* 背景色を黄色に */
+  padding: 5px 20px;         /* 上下5px、左右20pxの内側余白 */
+  background-color: #fffacd;  /* 背景色を黄色に */
+  border-radius: 5px;         /* 角を丸くする */
+  cursor: pointer;            /* マウスを重ねると指マークになる */
+}
+
+button.resetBtn {
+  padding: 5px 20px;         /* 上下8px、左右16pxの内側余白 */
+  background-color: #faebd7;
   border-radius: 5px;         /* 角を丸くする */
   cursor: pointer;            /* マウスを重ねると指マークになる */
 }
