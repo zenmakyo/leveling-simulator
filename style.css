@@ -151,6 +151,30 @@ button.adjustBtn {
   font-weight: bold;
 }
 
+/* ラジオボタン非表示 */
+.abilityBox input[type="radio"] {
+  display: none;
+}
+
+/* ラベルを箱っぽく */
+.abilityBox label {
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #dcdcdc;
+  border: 1px solid #a9a9a9;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* 選択中の色 */
+.abilityBox label:has(input[type="radio"]:checked) {
+  background-color: #000080;
+  border-color: #87ceeb;
+  color: #ffffff;
+}
+
 .optionBox {
   display: flex;
   align-items: center;
