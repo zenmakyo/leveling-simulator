@@ -107,6 +107,10 @@ button.adjustBtn {
   cursor: pointer;
 }
 
+.itemBox {
+  margin-top: 0.5em;
+}
+
 .itemBox input[type="radio"] {
   display: none; /* ラジオボタン自体を非表示 */
 }
