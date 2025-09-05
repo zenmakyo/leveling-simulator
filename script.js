@@ -37,3 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
   abilityRadios1.forEach(radio => radio.addEventListener("change", updateOptions));
   abilityRadios2.forEach(radio => radio.addEventListener("change", updateOptions));
 });
+
+const targetExpTable = {
+  "闇黒龍": 497,
+  "叛逆の断罪者": 326,
+  "盲鬼ト浮鬼": 275
+  
+};
