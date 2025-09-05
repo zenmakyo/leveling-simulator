@@ -130,13 +130,10 @@ button.adjustBtn {
   transition: background-color 0.2s, border-color 0.2s;
 }
 
-.itemBox input[type="radio"]:checked + span {
+.itemBox label:has(input[type="radio"]:checked) {
   background-color: #000080; /* 選択中の色 */
   border-color: #87ceeb;
   color: #ffffff;             /* 文字色 */
-  border-radius: 5px;
-  display: inline-block;
-  padding: 5px 10px;
 }
 
 button.calBtn {
