@@ -29,7 +29,7 @@ input {
 }
 
 button{
-  background-color: #c0c0c0;
+  background-color: #dcdcdc;
   border: 1px solid #a9a9a9;
   transition: transform 0.1s;
 }
@@ -83,7 +83,7 @@ button.adjustBtn {
   width: 270px;
   margin-left: 0.1em;
   padding: 5px;
-  border: 1px solid #c0c0c0;
+  border: 1px solid #dcdcdc;
   border-radius: 5px;
   box-sizing: border-box;
 }
@@ -121,7 +121,7 @@ button.adjustBtn {
 
 .itemBox label {
   padding: 5px 10px;
-  background-color: #c0c0c0;
+  background-color: #dcdcdc;
   border: 1px solid #a9a9a9;
   border-radius: 5px;
   cursor: pointer;
