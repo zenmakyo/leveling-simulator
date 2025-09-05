@@ -71,14 +71,14 @@ button.adjustBtn {
 
 .targetBox {
   margin-top: 1em;
-  display: flex;
+  display: inline-block;
   align-items: center;
   justify-content: center;
   position: relative;
 }
 
 .targetInput {
-  text-align: lift;
+  text-align: left;
   font-size: 16px;
   height: 30px;
   width: 270px;
@@ -90,7 +90,7 @@ button.adjustBtn {
 }
 
 .targetSuggestions {
-  text-align: lift;
+  text-align: left;
   position: absolute;
   top: 100%;
   left: 0;
