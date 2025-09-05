@@ -185,7 +185,7 @@ button.adjustBtn {
   gap: 5px;
 }
 
-#enhanceBox {
+#enhanceValue {
   font-size: 16px;
   padding: 5px;
   height: 28px;
@@ -196,7 +196,7 @@ button.adjustBtn {
   box-sizing: border-box;
 }
 
-#slotBox {
+#slotValue {
   font-size: 16px;
   padding: 5px;
   height: 28px;
