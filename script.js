@@ -1,4 +1,3 @@
-<script>
 function updateOptions() {
   const selected1 = document.querySelector('input[name="ability1"]:checked')?.value;
   const selected2 = document.querySelector('input[name="ability2"]:checked')?.value;
@@ -38,4 +37,3 @@ document.addEventListener("DOMContentLoaded", () => {
   abilityRadios1.forEach(radio => radio.addEventListener("change", updateOptions));
   abilityRadios2.forEach(radio => radio.addEventListener("change", updateOptions));
 });
-</script>
