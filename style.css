@@ -136,6 +136,7 @@ button.adjustBtn {
   text-align: center;
   position: relative;
   left: -90px;
+  margin-top: 1em;
 }
 
 .abilityBox {
