@@ -72,8 +72,6 @@ button.adjustBtn {
 .targetBox {
   margin-top: 1em;
   display: inline-block;
-  align-items: center;
-  justify-content: center;
   position: relative;
 }
 
