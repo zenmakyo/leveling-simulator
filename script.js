@@ -38,9 +38,6 @@ document.addEventListener("DOMContentLoaded", () => {
   abilityRadios2.forEach(radio => radio.addEventListener("change", updateOptions));
 });
 
-const targetInput = document.querySelector(".targetInput");
-const suggestionBox = document.querySelector(".targetSuggestions");
-
 const targetExpTable = {
   "闇黒龍": 497,
   "叛逆の断罪者": 326,
@@ -48,48 +45,44 @@ const targetExpTable = {
   
 };
 
+const targetInput = document.querySelector(".targetInput");
+const suggestionsBox = document.querySelector(".targetSuggestions");
+
 function updateSuggestions() {
-  const value = targetInput.value.trim();
-  suggestionBox.innerHTML = ""; // 既存候補クリア
+  const value = targetInput.value.trim().toLowerCase();
+  let matches;
 
-  if (!value) {
-    suggestionBox.style.display = "none";
-    return;
+  if (value === "") {
+    // 未入力時は全件表示
+    matches = wordList;
+  } else {
+    // 部分一致
+    matches = wordList.filter(word => word.toLowerCase().includes(value));
   }
 
-  const matches = enemies.filter(e => e.includes(value));
-
-  if (matches.length === 0) {
-    suggestionBox.style.display = "none";
-    return;
-  }
-
-  matches.forEach(match => {
-    const div = document.createElement("div");
-    div.textContent = match;
-    div.style.padding = "5px";
-    div.style.cursor = "pointer";
-
-    div.addEventListener("mousedown", () => { // clickよりmousedownの方が安全
-      targetInput.value = match;
-      suggestionBox.style.display = "none";
+  // 候補表示
+  suggestionsBox.innerHTML = "";
+  if (matches.length > 0) {
+    matches.forEach(word => {
+      const div = document.createElement("div");
+      div.textContent = word;
+      div.addEventListener("click", () => {
+        targetInput.value = word;
+        suggestionsBox.style.display = "none";
+      });
+      suggestionsBox.appendChild(div);
     });
-
-    suggestionBox.appendChild(div);
-  });
-
-  suggestionBox.style.display = "block";
+    suggestionsBox.style.display = "block";
+  } else {
+    suggestionsBox.style.display = "none";
+  }
 }
 
-// 入力中に候補を更新
+// 入力中
 targetInput.addEventListener("input", updateSuggestions);
-
-// フォーカスが外れたら非表示（クリックで選択できるよう少し遅延）
-targetInput.addEventListener("blur", () => {
-  setTimeout(() => {
-    suggestionBox.style.display = "none";
-  }, 100);
-});
-
-// フォーカス時にも候補を更新
+// フォーカス時
 targetInput.addEventListener("focus", updateSuggestions);
+// フォーカス外れたとき
+targetInput.addEventListener("blur", () => {
+  setTimeout(() => { suggestionsBox.style.display = "none"; }, 100);
+});
