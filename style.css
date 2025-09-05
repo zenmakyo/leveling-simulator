@@ -183,6 +183,20 @@ button.adjustBtn {
   display: flex;
   align-items: center;
   gap: 5px;
+}
+
+#enhanceBox {
+  font-size: 16px;
+  padding: 5px;
+  height: 28px;
+  margin: 0 1em;
+  text-align: center;
+  border: 1px solid #c0c0c0;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+#slotBox {
   font-size: 16px;
   padding: 5px;
   height: 28px;
