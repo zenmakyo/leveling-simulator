@@ -94,7 +94,6 @@ button.adjustBtn {
   position: absolute;
   top: 100%;
   left: 0;
-  right: 0;
   border: 1px solid #c0c0c0;
   border-radius: 5px;
   display: none;
@@ -102,6 +101,7 @@ button.adjustBtn {
   overflow-y: auto;
   font-size: 16px;
   z-index: 1000;
+  background-color: #ffffff;
 }
 
 .targetSuggestions div {
