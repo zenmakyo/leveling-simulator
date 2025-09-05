@@ -85,6 +85,7 @@ button.adjustBtn {
   border: 1px solid #dcdcdc;
   border-radius: 5px;
   box-sizing: border-box;
+  display: block;
 }
 
 .targetSuggestions {
