@@ -1,4 +1,4 @@
-/* レベル入力調整ボタン */
+/* レベル入力 */
 document.querySelectorAll(".adjustBtn").forEach(btn => {
   btn.addEventListener("click", () => {
     const input = btn.parentElement.querySelector("input[type=number]");
@@ -12,7 +12,7 @@ document.querySelectorAll(".adjustBtn").forEach(btn => {
   });
 });
 
-// 半角数字のみ
+// 半角数字のみ許可
 function enforceHalfWidthDigits(input) {
   input.addEventListener("input", () => {
     input.value = input.value.replace(/[^0-9]/g, "");
@@ -21,13 +21,11 @@ function enforceHalfWidthDigits(input) {
 
 const currentLevel = document.getElementById("currentLevel");
 const targetLevel = document.getElementById("targetLevel");
-const nextExpInput = document.getElementById("nextExp");
+const nextExp = document.getElementById("nextExp");
 
-enforceHalfWidthDigits(currentLevel);
-enforceHalfWidthDigits(targetLevel);
-enforceHalfWidthDigits(nextExpInput);
+[currentLevel, targetLevel, nextExp].forEach(enforceHalfWidthDigits);
 
-/* 転生数の背景色 */
+/* 転生数に色付け */
 const rebirth = document.getElementById("rebirth");
 const rebirthColors = {
   "0": "rgba(220, 221, 221, 0.5)",
@@ -41,12 +39,12 @@ const rebirthColors = {
   "8": "rgba(255, 51, 204, 0.5)",
   "9": "rgba(153, 0, 204, 0.5)"
 };
+
 rebirth.addEventListener("change", () => {
-  const value = rebirth.value;
-  rebirth.style.backgroundColor = rebirthColors[value] || "#fff";
+  rebirth.style.backgroundColor = rebirthColors[rebirth.value] || "#fff";
 });
 
-/* 強化値・参加枠数表示制御 */
+/* 強化値・参加枠数表示 */
 document.addEventListener("DOMContentLoaded", () => {
   const abilityRadios1 = document.querySelectorAll('input[name="ability1"]');
   const abilityRadios2 = document.querySelectorAll('input[name="ability2"]');
@@ -57,61 +55,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const selected1 = document.querySelector('input[name="ability1"]:checked')?.value;
     const selected2 = document.querySelector('input[name="ability2"]:checked')?.value;
 
-    if (selected1 === "博識" || selected2 === "博識" || selected1 === "共栄" || selected2 === "共栄") {
-      enhanceBox.style.display = "flex";
-    } else {
-      enhanceBox.style.display = "none";
-    }
-
-    if (selected1 === "共栄" || selected2 === "共栄") {
-      slotBox.style.display = "flex";
-    } else {
-      slotBox.style.display = "none";
-    }
+    enhanceBox.style.display = (selected1 === "博識" || selected2 === "博識" || selected1 === "共栄" || selected2 === "共栄") ? "flex" : "none";
+    slotBox.style.display = (selected1 === "共栄" || selected2 === "共栄") ? "flex" : "none";
   }
 
   updateOptions();
-
   abilityRadios1.forEach(r => r.addEventListener("change", updateOptions));
   abilityRadios2.forEach(r => r.addEventListener("change", updateOptions));
 });
 
-/* 討伐対象リスト */
+/* 討伐対象候補 */
 const targetExpTable = {
-  "[497] 闇黒龍": 497,
-  "[326] 叛逆の断罪者": 326,
-  "[275] 盲鬼ト浮鬼": 275,
-  "[261] 砂漠の亡者":261,
-  "[250] 終焉の指揮者": 250,
-  "[222] ポセイドン": 222,
-  "[196] 死を告げる者": 196,
-  "[183] 疎まれし者": 183,
-  "[169] 刑罰を記すもの": 169,
-  "[161] ロックイーター": 161,
-  "[147] カトブレパス": 147,
-  "[134] 海太郎": 134,
-  "[122] 意思ある肖像": 122,
-  "[106] ウッビィ": 106,
-  "[94] スキュラ": 94,
-  "[78] 鼠小組": 78,
-  "[59] 画匠カミーリオ": 59,
-  "[43] 川太郎": 43,
-  "[29] 魔女の森の梟": 29,
-  "[20] お化け提灯": 20,
-  "[7] トゲウサギ": 7,
+  "[497] 闇黒龍": 497, "[326] 叛逆の断罪者": 326, "[275] 盲鬼ト浮鬼": 275,
+  "[261] 砂漠の亡者":261, "[250] 終焉の指揮者": 250, "[222] ポセイドン": 222,
+  "[196] 死を告げる者": 196, "[183] 疎まれし者": 183, "[169] 刑罰を記すもの": 169,
+  "[161] ロックイーター": 161, "[147] カトブレパス": 147, "[134] 海太郎": 134,
+  "[122] 意思ある肖像": 122, "[106] ウッビィ": 106, "[94] スキュラ": 94,
+  "[78] 鼠小組": 78, "[59] 画匠カミーリオ": 59, "[43] 川太郎": 43,
+  "[29] 魔女の森の梟": 29, "[20] お化け提灯": 20, "[7] トゲウサギ": 7,
   "[5] コブンネズミ": 5
 };
-
 const wordList = Object.keys(targetExpTable);
 const targetInput = document.querySelector(".targetInput");
 const suggestionsBox = document.querySelector(".targetSuggestions");
 
 function updateSuggestions() {
   const value = targetInput.value.trim().toLowerCase();
-  let matches = value === "" ? wordList : wordList.filter(word => word.toLowerCase().includes(value));
-
+  const matches = value === "" ? wordList : wordList.filter(w => w.toLowerCase().includes(value));
   suggestionsBox.innerHTML = "";
-  if (matches.length) {
+  if (matches.length > 0) {
     matches.forEach(word => {
       const div = document.createElement("div");
       div.textContent = word;
@@ -129,24 +101,22 @@ function updateSuggestions() {
 
 targetInput.addEventListener("input", updateSuggestions);
 targetInput.addEventListener("focus", updateSuggestions);
-targetInput.addEventListener("blur", () => {
-  setTimeout(() => { suggestionsBox.style.display = "none"; }, 100);
-});
+targetInput.addEventListener("blur", () => setTimeout(() => { suggestionsBox.style.display = "none"; }, 100));
 
-/* 総経験値計算 */
-function calculateTotalExp(currentLv, targetLv, rebirth, nextExp) {
+/* 総必要経験値計算 */
+function calcTotalExp(currentLv, targetLv, rebirth, nextExp) {
   if (currentLv >= targetLv) return 0;
-  let totalExp = nextExp;
+  let total = nextExp;
   for (let lv = currentLv + 1; lv <= targetLv - 1; lv++) {
-    totalExp += lv * (11 + rebirth) - 3;
+    total += lv * (11 + rebirth) - 3;
   }
-  return totalExp;
+  return total;
 }
 
-/* 一回あたりの経験値 */
-function calcExpPerFight(targetExp, itemMultiplier, ability1Value, ability2Value, enhanceValue, slotValue) {
-  function abilityMultiplier(value) {
-    switch(value) {
+/* 討伐一回あたりの経験値 */
+function calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhanceValue, slotValue) {
+  function abilityMultiplier(val) {
+    switch(val){
       case "習熟/記念": return 10;
       case "博識": return enhanceValue;
       case "早熟": return 30;
@@ -154,51 +124,39 @@ function calcExpPerFight(targetExp, itemMultiplier, ability1Value, ability2Value
       default: return 0;
     }
   }
-
-  const totalAbilityPercent = abilityMultiplier(ability1Value) + abilityMultiplier(ability2Value);
-  const totalMultiplier = 1 + totalAbilityPercent / 100;
-
-  const expPerFight = targetExp * itemMultiplier * totalMultiplier;
-  return Math.ceil(expPerFight);
+  const totalPercent = abilityMultiplier(ability1) + abilityMultiplier(ability2);
+  return Math.ceil(targetExp * itemMultiplier * (1 + totalPercent / 100));
 }
 
-/* 結果表示 */
-function displayResults(currentLevel, targetLevel, totalExpNeeded, expPerBattle, nextExp) {
-  document.getElementById("currentLvDisplay").textContent = currentLevel;
-  document.getElementById("targetLvDisplay").textContent = targetLevel;
+/* 計算・表示 */
+document.getElementById("calcBtn").addEventListener("click", () => {
+  const curLv = parseInt(currentLevel.value) || 1;
+  const tarLv = parseInt(targetLevel.value) || 1;
+  const next = parseInt(nextExp.value) || 0;
+  const reb = parseInt(rebirth.value) || 0;
+  const targetExp = targetExpTable[targetInput.value] || 0;
+  const itemMultiplier = parseInt(document.querySelector('input[name="item"]:checked')?.value) || 1;
+  const ability1 = document.querySelector('input[name="ability1"]:checked')?.value || "none";
+  const ability2 = document.querySelector('input[name="ability2"]:checked')?.value || "none";
+  const enhanceVal = parseInt(document.getElementById("enhanceValue").value) || 0;
+  const slotVal = parseFloat(document.getElementById("slotValue").value) || 1;
+
+  const totalExpNeeded = calcTotalExp(curLv, tarLv, reb, next);
+  const expPerBattle = calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhanceVal, slotVal);
 
   const numBattles = Math.ceil(totalExpNeeded / expPerBattle);
+  const obtainedExp = numBattles * expPerBattle;
+  const fraction = obtainedExp - totalExpNeeded;
+
+  const targetLevelNext = tarLv * (11 + reb) - 3;
+  const remainingNext = targetLevelNext - fraction;
+
+  // 表示
+  document.getElementById("currentLvDisplay").textContent = curLv;
+  document.getElementById("targetLvDisplay").textContent = tarLv;
   document.getElementById("numBattlesDisplay").textContent = numBattles;
-
-  const remainingNext = nextExp - (numBattles * expPerBattle - totalExpNeeded);
-  document.getElementById("nextExpDisplay").textContent = remainingNext;
-
-  if (remainingNext < 0) {
-    document.getElementById("fractionWarning").style.display = "block";
-  } else {
-    document.getElementById("fractionWarning").style.display = "none";
-  }
-
+  document.getElementById("nextExpDisplay").textContent = Math.abs(remainingNext);
+  document.getElementById("fractionWarning").style.display = remainingNext < 0 ? "block" : "none";
   document.getElementById("coinDisplay").textContent = Math.ceil(numBattles / 5);
   document.getElementById("resultBox").style.display = "block";
-}
-
-/* 計算ボタン */
-document.getElementById("calcBtn").addEventListener("click", () => {
-  const currentLv = parseInt(currentLevel.value) || 1;
-  const targetLv = parseInt(targetLevel.value) || 1;
-  const nextExpVal = parseInt(nextExpInput.value) || 0;
-  const rebirthVal = parseInt(rebirth.value) || 0;
-
-  const targetExp = targetExpTable[targetInput.value] || 0;
-  const itemMultiplier = parseFloat(document.querySelector('input[name="item"]:checked').value) || 1;
-  const ability1Value = document.querySelector('input[name="ability1"]:checked').value;
-  const ability2Value = document.querySelector('input[name="ability2"]:checked').value;
-  const enhanceValue = parseInt(document.getElementById("enhanceValue").value) || 0;
-  const slotValue = parseFloat(document.getElementById("slotValue").value) || 1;
-
-  const totalExpNeeded = calculateTotalExp(currentLv, targetLv, rebirthVal, nextExpVal);
-  const expPerBattle = calcExpPerFight(targetExp, itemMultiplier, ability1Value, ability2Value, enhanceValue, slotValue);
-
-  displayResults(currentLv, targetLv, totalExpNeeded, expPerBattle, nextExpVal);
 });
