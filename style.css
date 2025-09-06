@@ -79,6 +79,7 @@ button.adjustBtn {
 
 .inputWrapper {
   position: relative; /* inputを基準に候補を出す */
+  margin-left: 0.5em;
 }
 
 .targetInput {
