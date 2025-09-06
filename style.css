@@ -69,53 +69,39 @@ button.adjustBtn {
   box-sizing: border-box;
 }
 
-/* 親を横並びにする（ラベルと入力が1行に並ぶ） */
 .targetBox {
+  margin-top: 1em;
   display: flex;
-  align-items: center;   /* 垂直方向中央揃え */
-  gap: 0.5em;            /* ラベルと入力の間隔 */
-  flex-wrap: nowrap;     /* 折返しさせたくない場合 */
-}
-
-/* ラベルが改行されないようにする */
-.targetLabel {
-  white-space: nowrap;
-  flex: 0 0 auto; /* 固定幅扱い（必要なら幅指定） */
-}
-
-/* 入力と候補を包むラッパー（候補を入力に合わせる） */
-.inputWrapper {
+  align-items: center;
   position: relative;
-  width: 270px;       /* 固定幅にするならここ。可変にしたければ下参照 */
-  flex: 0 0 auto;
 }
 
-/* 入力欄はラッパー幅に合わせる */
 .targetInput {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
+  font-size: 16px;
   height: 30px;
+  width: 270px;
+  margin-left: 0.5em;
   padding: 5px;
   border: 1px solid #dcdcdc;
   border-radius: 5px;
-  text-align: left;   /* 入力を左寄せ */
+  box-sizing: border-box;
+  text-align: left; /* 入力テキストを左寄せ */
 }
 
-/* 候補リストはラッパー（＝入力欄）の真下にピッタリ */
 .targetSuggestions {
   position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  width: 100%;
-  max-height: 200px;
-  overflow-y: auto;
+  top: 100%;
+  left: calc(6em + 5px); /* 「討伐対象：」分だけ右に寄せる */
+  width: 270px; /* input と同じ幅にする */
   border: 1px solid #c0c0c0;
   border-radius: 5px;
-  background: #fff;
-  display: none;      /* JSで表示/非表示を切替 */
+  background: white; /* 背景つける */
+  display: none;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 16px;
   z-index: 1000;
-  text-align: left;
+  text-align: left; /* 候補文字も左寄せ */
 }
 
 .targetSuggestions div {
