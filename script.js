@@ -130,14 +130,19 @@ function calcExpPerBattle(targetExp, itemMultiplier, boostMultiplier, ability1, 
 let boostMultiplier = 1;
 document.querySelectorAll(".boostBtn").forEach(btn => {
   btn.addEventListener("click", () => {
+    // すでに押されているボタンをもう一度押したら解除
     if (btn.classList.contains("active")) {
       btn.classList.remove("active");
       boostMultiplier = 1;
-    } else {
-      document.querySelectorAll(".boostBtn").forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      boostMultiplier = parseInt(btn.dataset.multiplier) || 1;
+      return; // ここで終了
     }
+
+    // 他のボタンは解除
+    document.querySelectorAll(".boostBtn").forEach(b => b.classList.remove("active"));
+
+    // 自分を選択
+    btn.classList.add("active");
+    boostMultiplier = parseInt(btn.dataset.multiplier) || 1;
   });
 });
 
