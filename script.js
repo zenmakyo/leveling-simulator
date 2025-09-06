@@ -182,6 +182,9 @@ if (remainExp >= 0) {
   `;
 }
 
+    // 討伐回数に応じて必要コイン数を計算（1コインで5回討伐可能として切り上げ）
+const totalCoins = Math.ceil(numBattles / 5);
+
     // 結果表示
     document.getElementById("resultBox").style.display = "block";
     document.getElementById("result").textContent = `討伐対象: ${targetInput.value}`;
@@ -189,6 +192,7 @@ if (remainExp >= 0) {
     document.getElementById("targetLvDisplay").textContent = tarLv;
     document.getElementById("numBattlesDisplay").textContent = numBattles;
     document.getElementById("nextExpDisplay").textContent = nextLvExp;
+    document.getElementById("coinDisplay").textContent = totalCoins;
   });
 
   /* リセットボタン */
