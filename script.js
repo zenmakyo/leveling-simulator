@@ -39,6 +39,7 @@ const rebirthColors = {
   "8": "rgba(255, 51, 204, 0.5)",
   "9": "rgba(153, 0, 204, 0.5)"
 };
+
 rebirth.addEventListener("change", () => {
   rebirth.style.backgroundColor = rebirthColors[rebirth.value] || "#fff";
 });
@@ -97,11 +98,12 @@ function updateSuggestions() {
     suggestionsBox.style.display = "none";
   }
 }
+
 targetInput.addEventListener("input", updateSuggestions);
 targetInput.addEventListener("focus", updateSuggestions);
 targetInput.addEventListener("blur", () => setTimeout(() => { suggestionsBox.style.display = "none"; }, 100));
 
-/* 総必要経験値計算 */
+/* 経験値計算 */
 function calcTotalExp(currentLv, targetLv, rebirth, nextExp) {
   if (currentLv >= targetLv) return 0;
   let total = nextExp;
@@ -112,7 +114,7 @@ function calcTotalExp(currentLv, targetLv, rebirth, nextExp) {
 }
 
 /* 討伐一回あたりの経験値 */
-function calcExpPerBattle(targetExp, itemMultiplier, boostMultiplier, ability1, ability2, enhanceValue, slotValue) {
+function calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhanceValue, slotValue, boost) {
   function abilityMultiplier(val) {
     switch(val){
       case "習熟/記念": return 10;
@@ -123,30 +125,10 @@ function calcExpPerBattle(targetExp, itemMultiplier, boostMultiplier, ability1, 
     }
   }
   const totalPercent = abilityMultiplier(ability1) + abilityMultiplier(ability2);
-  return Math.ceil(targetExp * itemMultiplier * boostMultiplier * (1 + totalPercent / 100));
+  return Math.ceil(targetExp * itemMultiplier * boost * (1 + totalPercent / 100));
 }
 
-/* ブーストボタン制御 */
-let boostMultiplier = 1;
-document.querySelectorAll(".boostBtn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    // すでに押されているボタンをもう一度押したら解除
-    if (btn.classList.contains("active")) {
-      btn.classList.remove("active");
-      boostMultiplier = 1;
-      return; // ここで終了
-    }
-
-    // 他のボタンは解除
-    document.querySelectorAll(".boostBtn").forEach(b => b.classList.remove("active"));
-
-    // 自分を選択
-    btn.classList.add("active");
-    boostMultiplier = parseInt(btn.dataset.multiplier) || 1;
-  });
-});
-
-/* 計算ボタン */
+/* 計算・表示 */
 document.getElementById("calcBtn").addEventListener("click", () => {
   const curLv = parseInt(currentLevel.value) || 1;
   const tarLv = parseInt(targetLevel.value) || 1;
@@ -156,11 +138,12 @@ document.getElementById("calcBtn").addEventListener("click", () => {
   const itemMultiplier = parseInt(document.querySelector('input[name="item"]:checked')?.value) || 1;
   const ability1 = document.querySelector('input[name="ability1"]:checked')?.value || "none";
   const ability2 = document.querySelector('input[name="ability2"]:checked')?.value || "none";
-  const enhanceVal = parseInt(document.getElementById("enhanceValue").value) || 0;
-  const slotVal = parseFloat(document.getElementById("slotValue").value) || 1;
+  const enhanceVal = parseInt(document.getElementById("enhanceValue").value) || 20;
+  const slotVal = parseFloat(document.getElementById("slotValue").value) || 4;
+  const boost = parseFloat(document.querySelector('input[name="boost"]:checked')?.value) || 1;
 
   const totalExpNeeded = calcTotalExp(curLv, tarLv, reb, next);
-  const expPerBattle = calcExpPerBattle(targetExp, itemMultiplier, boostMultiplier, ability1, ability2, enhanceVal, slotVal);
+  const expPerBattle = calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhanceVal, slotVal, boost);
 
   const numBattles = Math.ceil(totalExpNeeded / expPerBattle);
   const obtainedExp = numBattles * expPerBattle;
@@ -181,19 +164,49 @@ document.getElementById("calcBtn").addEventListener("click", () => {
   document.getElementById("result").style.display = "none";
 });
 
-/* リセットボタン */
-document.getElementById("resetBtn").addEventListener("click", () => {
-  // input, radio, text 全リセット
-  document.querySelectorAll("input").forEach(el => {
-    if (el.type === "number" || el.type === "text") el.value = "";
-    if (el.type === "radio") el.checked = false;
+/* ブーストボタン切替 */
+const boostButtons = document.querySelectorAll('input[name="boost"]');
+boostButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    if (btn.checked && btn.classList.contains("active")) {
+      btn.checked = false;
+      btn.classList.remove("active");
+    } else {
+      boostButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+    }
   });
-  targetInput.value = "";
-  suggestionsBox.innerHTML = "";
-  boostMultiplier = 1;
-  document.querySelectorAll(".boostBtn").forEach(b => b.classList.remove("active"));
+});
 
-  // 結果非表示 & 初期メッセージ復活
+/* リセット */
+document.getElementById("resetBtn").addEventListener("click", () => {
+  // 入力欄リセット
+  currentLevel.value = "";
+  targetLevel.value = "";
+  nextExp.value = "";
+  targetInput.value = "";
+  rebirth.value = "0";
+  rebirth.style.backgroundColor = rebirthColors["0"];
+
+  // アイテム：章なし
+  document.querySelector('input[name="item"][value="1"]').checked = true;
+
+  // 装備：なし・なし
+  document.querySelector('input[name="ability1"][value="none"]').checked = true;
+  document.querySelector('input[name="ability2"][value="none"]').checked = true;
+
+  // 強化値・参加枠数を初期値に戻す
+  document.getElementById("enhanceValue").value = 20;
+  document.getElementById("slotValue").value = 4;
+
+  // ブースト解除
+  boostButtons.forEach(b => {
+    b.checked = false;
+    b.classList.remove("active");
+  });
+
+  // 表示リセット
   document.getElementById("resultBox").style.display = "none";
+  document.getElementById("fractionWarning").style.display = "none";
   document.getElementById("result").style.display = "block";
 });
