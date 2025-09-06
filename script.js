@@ -114,7 +114,7 @@ function calcTotalExp(currentLv, targetLv, rebirth, nextExp) {
 }
 
 /* 討伐一回あたりの経験値 */
-function calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhanceValue, slotValue) {
+function calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhanceValue, slotValue, boostMultiplier=1) {
   function abilityMultiplier(val) {
     switch(val){
       case "習熟/記念": return 10;
@@ -125,7 +125,13 @@ function calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhance
     }
   }
   const totalPercent = abilityMultiplier(ability1) + abilityMultiplier(ability2);
-  return Math.ceil(targetExp * itemMultiplier * (1 + totalPercent / 100));
+  return Math.ceil(targetExp * itemMultiplier * (1 + totalPercent / 100) * boostMultiplier);
+}
+
+/* 経験値ブースト取得 */
+function getBoostMultiplier() {
+  const selected = document.querySelector('input[name="boost"]:checked');
+  return selected ? parseFloat(selected.value) : 1;
 }
 
 /* 計算・表示 */
@@ -140,9 +146,10 @@ document.getElementById("calcBtn").addEventListener("click", () => {
   const ability2 = document.querySelector('input[name="ability2"]:checked')?.value || "none";
   const enhanceVal = parseInt(document.getElementById("enhanceValue").value) || 0;
   const slotVal = parseFloat(document.getElementById("slotValue").value) || 1;
+  const boostMultiplier = getBoostMultiplier();
 
   const totalExpNeeded = calcTotalExp(curLv, tarLv, reb, next);
-  const expPerBattle = calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhanceVal, slotVal);
+  const expPerBattle = calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhanceVal, slotVal, boostMultiplier);
 
   const numBattles = Math.ceil(totalExpNeeded / expPerBattle);
   const obtainedExp = numBattles * expPerBattle;
@@ -160,3 +167,4 @@ document.getElementById("calcBtn").addEventListener("click", () => {
   document.getElementById("coinDisplay").textContent = Math.ceil(numBattles / 5);
   document.getElementById("resultBox").style.display = "block";
 });
+``
