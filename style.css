@@ -71,7 +71,7 @@ button.adjustBtn {
 
 .targetBox {
   margin-top: 1em;
-  display: inline-block;
+  display: flex;
   position: relative;
 }
 
