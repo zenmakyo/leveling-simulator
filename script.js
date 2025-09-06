@@ -207,3 +207,9 @@ function calcExpPerFight(targetExp, itemMultiplier, ability1Value, ability2Value
 
   return Math.ceil(expPerFight);
 }
+
+/* 必要討伐回数 */
+function calcNumBattles(totalExpNeeded, expPerBattle) {
+  // 必要経験値を1回あたりの経験値で割って切り上げ
+  return Math.ceil(totalExpNeeded / expPerBattle);
+}
