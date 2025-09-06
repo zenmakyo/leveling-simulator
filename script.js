@@ -153,38 +153,35 @@ sdocument.addEventListener("DOMContentLoaded", () => {
     const targetLevelNext = tarLv * (11 + reb) - 3;
     const remainingNext = targetLevelNext - fraction;
 
-    /* 警告 */
+   /* 警告・Next計算 */
 const fractionWarning = document.getElementById("fractionWarning");
+const resultNext = document.getElementById("resultNext");
 let displayLevel = tarLv;
-let nextForTarget = tarLv * (11 + reb) - 3;
+let remainExp = tarLv * (11 + reb) - 3 - fraction; // 目標レベルNext - 端数
 
-// remain = 目標レベルのNext - 端数
-let remain = nextForTarget - fraction;
-
-if (remain >= 0) {
+if (remainExp >= 0) {
   // --- 通常時 ---
-  document.getElementById("resultNext").style.display = "block";
-  document.getElementById("nextExpDisplay").textContent = remain;
+  resultNext.style.display = "block";
+  document.getElementById("nextExpDisplay").textContent = remainExp;
   fractionWarning.style.display = "none";
 } else {
   // --- 超過時 ---
-  document.getElementById("resultNext").style.display = "none";
+  resultNext.style.display = "none";
 
-  let over = remain; // 負の値
-  while (over < 0) {
+  let overExp = remainExp; // 負の値
+  while (overExp < 0) {
     displayLevel++;
-    let nextForLevel = displayLevel * (11 + reb) - 3;
-    over += nextForLevel;
+    const nextForLevel = displayLevel * (11 + reb) - 3;
+    overExp += nextForLevel;
   }
 
   fractionWarning.style.display = "block";
   fractionWarning.innerHTML = `
     ※ 目標レベルを超えてレベルアップします！<br>
     推定Lv ${displayLevel}<br>
-    Next ${over} Exp
+    Next ${overExp} Exp
   `;
 }
-
 
     // 結果表示
     document.getElementById("resultBox").style.display = "block";
