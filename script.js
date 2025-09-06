@@ -20,7 +20,6 @@ function enforceHalfWidthDigits(input) {
 const currentLevel = document.getElementById("currentLevel");
 const targetLevel = document.getElementById("targetLevel");
 const nextExp = document.getElementById("nextExp");
-
 [currentLevel, targetLevel, nextExp].forEach(enforceHalfWidthDigits);
 
 /* 転生数に色付け */
@@ -51,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateOptions() {
     const selected1 = document.querySelector('input[name="ability1"]:checked')?.value;
     const selected2 = document.querySelector('input[name="ability2"]:checked')?.value;
-
     enhanceBox.style.display = (selected1 === "博識" || selected2 === "博識" || selected1 === "共栄" || selected2 === "共栄") ? "flex" : "none";
     slotBox.style.display = (selected1 === "共栄" || selected2 === "共栄") ? "flex" : "none";
   }
@@ -149,15 +147,8 @@ document.getElementById("calcBtn").addEventListener("click", () => {
   const targetLevelNext = tarLv * (11 + reb) - 3;
   const remainingNext = targetLevelNext - fraction;
 
-  // 表示
-  document.getElementById("currentLvDisplay").textContent = curLv;
-  document.getElementById("targetLvDisplay").textContent = tarLv;
-  document.getElementById("numBattlesDisplay").textContent = numBattles;
-  document.getElementById("nextExpDisplay").textContent = Math.abs(remainingNext);
-  document.getElementById("coinDisplay").textContent = Math.ceil(numBattles / 5);
-
-  // 警告
-  const fractionWarning = document.getElementById("fractionWarning");
+  // 警告表示
+  let warningText = "";
   if (remainingNext < 0) {
     let extraExp = Math.abs(remainingNext);
     let levelUp = tarLv;
@@ -168,28 +159,5 @@ document.getElementById("calcBtn").addEventListener("click", () => {
         levelUp++;
       } else break;
     }
-    fractionWarning.querySelector("br").nextSibling.textContent = `Lv ${levelUp} まで上がります！`;
-    fractionWarning.style.display = "block";
-  } else {
-    fractionWarning.style.display = "none";
-  }
-
-  document.getElementById("resultBox").style.display = "block";
-});
-
-/* リセットボタン */
-document.getElementById("resetBtn").addEventListener("click", () => {
-  currentLevel.value = 1;
-  targetLevel.value = 1;
-  nextExp.value = 0;
-  rebirth.value = 0;
-  rebirth.style.backgroundColor = rebirthColors["0"];
-  document.querySelectorAll('input[name="item"]').forEach(r => r.checked = false);
-  document.querySelectorAll('input[name="ability1"], input[name="ability2"]').forEach(r => r.checked = false);
-  document.getElementById("enhanceValue").value = 20;
-  document.getElementById("slotValue").value = 4;
-  document.querySelectorAll('input[name="boost"]').forEach(r => r.checked = false);
-  document.getElementById("resultBox").style.display = "none";
-  document.getElementById("fractionWarning").style.display = "none";
-  document.getElementById("result").textContent = "ここに結果が表示されます";
-});
+    warningText = `Lv ${levelUp} まで上がります！`;
+    document.getElementBy
