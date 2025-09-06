@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* 警告 */
     const fractionWarning = document.getElementById("fractionWarning");
-let nextLvExp; // 次のレベルまでの残り経験値
+let nextLvExp;
 let displayLevel = tarLv;
 
 if (fraction >= 0) {
@@ -176,6 +176,9 @@ if (fraction >= 0) {
   fractionWarning.style.display = "block";
   fractionWarning.innerHTML = `※ 目標レベルを超えてレベルアップします<br>Lv ${displayLevel} まで上がります！`;
 }
+
+// Next表示更新
+document.getElementById("nextExpDisplay").textContent = nextLvExp;
 
 
     // 結果表示
