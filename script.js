@@ -89,9 +89,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const div = document.createElement("div");
         div.textContent = word;
         div.addEventListener("mousedown", () => {
-          targetInput.value = word;
-          suggestionsBox.style.display = "none";
-        });
+        targetInput.value = word;
+        suggestionsBox.style.display = "none";
+
+  // 「カスタム経験値」選択時のみ表示
+  if (word === "カスタム経験値") {
+    document.getElementById("customExpBox").style.display = "block";
+  } else {
+    document.getElementById("customExpBox").style.display = "none";
+  }
+});
         suggestionsBox.appendChild(div);
       });
       suggestionsBox.style.display = "block";
@@ -147,7 +154,12 @@ boostRadios.forEach(radio => {
     const tarLv = parseInt(targetLevel.value) || 1;
     const next = parseInt(nextExp.value) || 0;
     const reb = parseInt(rebirth.value) || 0;
-    const targetExp = targetExpTable[targetInput.value] || 0;
+    let targetExp;
+      if (targetInput.value === "カスタム経験値") {
+        targetExp = parseInt(document.getElementById("customExpInput").value) || 0;
+      } else {
+        targetExp = targetExpTable[targetInput.value] || 0;
+      }
     const itemMultiplier = parseInt(document.querySelector('input[name="item"]:checked')?.value) || 1;
     const ability1 = document.querySelector('input[name="ability1"]:checked')?.value || "none";
     const ability2 = document.querySelector('input[name="ability2"]:checked')?.value || "none";
