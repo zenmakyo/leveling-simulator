@@ -239,3 +239,26 @@ function calcBattleResults(totalExpNeeded, expPerBattle, nextExpForTarget) {
   };
 }
 
+function displayResults(currentLevel, targetLevel, totalExpNeeded, expPerBattle, nextExp, coinNeeded) {
+  // 表示用の要素
+  document.getElementById("currentLvDisplay").textContent = currentLevel;
+  document.getElementById("targetLvDisplay").textContent = targetLevel;
+  
+  const numBattles = Math.ceil(totalExpNeeded / expPerBattle);
+  document.getElementById("numBattlesDisplay").textContent = numBattles;
+  
+  const remainingNext = nextExp - (numBattles * expPerBattle - totalExpNeeded);
+  document.getElementById("nextExpDisplay").textContent = remainingNext;
+  
+  // 警告表示
+  if (remainingNext < 0) {
+    document.getElementById("fractionWarning").style.display = "block";
+  } else {
+    document.getElementById("fractionWarning").style.display = "none";
+  }
+  
+  document.getElementById("coinDisplay").textContent = Math.ceil(numBattles / 5);
+  
+  // 結果ボックス表示
+  document.getElementById("resultBox").style.display = "block";
+}
