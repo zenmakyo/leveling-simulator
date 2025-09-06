@@ -30,7 +30,26 @@ enforceHalfWidthDigits(currentLevel);
 enforceHalfWidthDigits(targetLevel);
 enforceHalfWidthDigits(nextvalue);
 
+/* 転生数に色付け */
+const rebirth = document.getElementById("rebirth");
 
+const rebirthColors = {
+  "0": "#dcdddd",
+  "1": "#bbc8e6",
+  "2": "#2ca9e1",
+  "3": "#66ff66",
+  "4": "#ffff00",
+  "5": "#ffcc00",
+  "6": "#ff9900",
+  "7": "#cc0000",
+  "8": "#ff33cc",
+  "9": "#9900cc"
+};
+
+rebirth.addEventListener("change", () => {
+  const value = rebirth.value;
+  rebirth.style.backgroundColor = rebirthColors[value] || "#fff"; // 選択された値に応じて背景色
+});
 
 /* 強化値と参加枠数の表示 */
 function updateOptions() {
