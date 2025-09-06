@@ -42,6 +42,12 @@ document.addEventListener("DOMContentLoaded", () => {
     rebirth.style.backgroundColor = rebirthColors[rebirth.value] || "#fff";
   });
 
+  /* 討伐対象のみリセット */
+  document.getElementById("resetTargetBtn").addEventListener("click", () => {
+  targetInput.value = "";             // 入力を空に
+  suggestionsBox.style.display = "none"; // 候補を非表示
+  });
+
   /* 強化値・参加枠数表示 */
   const abilityRadios1 = document.querySelectorAll('input[name="ability1"]');
   const abilityRadios2 = document.querySelectorAll('input[name="ability2"]');
