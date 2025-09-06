@@ -1,4 +1,4 @@
-sdocument.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
 
   /* レベル入力 */
   document.querySelectorAll(".adjustBtn").forEach(btn => {
