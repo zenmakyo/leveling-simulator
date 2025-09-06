@@ -153,6 +153,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const targetLevelNext = tarLv * (11 + reb) - 3;
     const remainingNext = targetLevelNext - fraction;
 
+    // 討伐回数に応じて必要コイン数を計算（1コインで5回討伐可能として切り上げ）
+    const totalCoins = Math.ceil(numBattles / 5);
+
    /* 警告・Next計算 */
 const fractionWarning = document.getElementById("fractionWarning");
 const resultNext = document.getElementById("resultNext");
@@ -181,9 +184,6 @@ if (remainExp >= 0) {
     推定Lv ${displayLevel} , Next ${overExp} Exp
   `;
 }
-
-    // 討伐回数に応じて必要コイン数を計算（1コインで5回討伐可能として切り上げ）
-const totalCoins = Math.ceil(numBattles / 5);
 
     // 結果表示
     document.getElementById("resultBox").style.display = "block";
