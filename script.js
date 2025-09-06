@@ -185,3 +185,25 @@ function getTotalExpFromInputs() {
 
   return calculateTotalExp(currentLv, targetLv, rebirth, nextExp);
 }
+
+/* 討伐一回あたりの経験値量計算 */
+function calcExpPerFight(targetExp, itemMultiplier, ability1Value, ability2Value, enhanceValue, slotValue) {
+  // アビリティ倍率の計算
+  function abilityMultiplier(value) {
+    switch(value) {
+      case "習熟/記念": return 10;
+      case "博識": return enhanceValue; // 強化値 %
+      case "早熟": return 30;
+      case "共栄": return Math.floor(enhanceValue * slotValue); // 小数切り捨て
+      default: return 0;
+    }
+  }
+
+  const totalAbilityPercent = abilityMultiplier(ability1Value) + abilityMultiplier(ability2Value);
+  const totalMultiplier = 1 + totalAbilityPercent / 100;
+
+  // 討伐対象の経験値 × アイテム倍率 × 装備アビリティ倍率
+  const expPerFight = targetExp * itemMultiplier * totalMultiplier;
+
+  return Math.ceil(expPerFight);
+}
