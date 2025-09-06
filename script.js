@@ -149,8 +149,15 @@ document.getElementById("calcBtn").addEventListener("click", () => {
   const targetLevelNext = tarLv * (11 + reb) - 3;
   const remainingNext = targetLevelNext - fraction;
 
-  // 警告＋超過レベル計算
-  let warningText = "";
+  // 表示
+  document.getElementById("currentLvDisplay").textContent = curLv;
+  document.getElementById("targetLvDisplay").textContent = tarLv;
+  document.getElementById("numBattlesDisplay").textContent = numBattles;
+  document.getElementById("nextExpDisplay").textContent = Math.abs(remainingNext);
+  document.getElementById("coinDisplay").textContent = Math.ceil(numBattles / 5);
+
+  // 警告
+  const fractionWarning = document.getElementById("fractionWarning");
   if (remainingNext < 0) {
     let extraExp = Math.abs(remainingNext);
     let levelUp = tarLv;
@@ -161,11 +168,28 @@ document.getElementById("calcBtn").addEventListener("click", () => {
         levelUp++;
       } else break;
     }
-    warningText = `※ 目標レベルを超えてレベルアップします\n（レベル ${levelUp} まで上がります）`;
+    fractionWarning.querySelector("br").nextSibling.textContent = `Lv ${levelUp} まで上がります！`;
+    fractionWarning.style.display = "block";
+  } else {
+    fractionWarning.style.display = "none";
   }
 
-  // 表示
-  document.getElementById("currentLvDisplay").textContent = curLv;
-  document.getElementById("targetLvDisplay").textContent = tarLv;
-  document.getElementById("numBattlesDisplay").textContent = numBattles;
-  document.getElementById("nextExpDisplay").textContent =
+  document.getElementById("resultBox").style.display = "block";
+});
+
+/* リセットボタン */
+document.getElementById("resetBtn").addEventListener("click", () => {
+  currentLevel.value = 1;
+  targetLevel.value = 1;
+  nextExp.value = 0;
+  rebirth.value = 0;
+  rebirth.style.backgroundColor = rebirthColors["0"];
+  document.querySelectorAll('input[name="item"]').forEach(r => r.checked = false);
+  document.querySelectorAll('input[name="ability1"], input[name="ability2"]').forEach(r => r.checked = false);
+  document.getElementById("enhanceValue").value = 20;
+  document.getElementById("slotValue").value = 4;
+  document.querySelectorAll('input[name="boost"]').forEach(r => r.checked = false);
+  document.getElementById("resultBox").style.display = "none";
+  document.getElementById("fractionWarning").style.display = "none";
+  document.getElementById("result").textContent = "ここに結果が表示されます";
+});
