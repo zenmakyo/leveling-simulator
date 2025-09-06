@@ -73,6 +73,7 @@ button.adjustBtn {
   margin-top: 1em;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
 }
 
@@ -91,8 +92,7 @@ button.adjustBtn {
 .targetSuggestions {
   position: absolute;
   top: 100%;
-  left: calc(6em + 5px); /* 「討伐対象：」分だけ右に寄せる */
-  width: 270px; /* input と同じ幅にする */
+  width: 100%;
   border: 1px solid #c0c0c0;
   border-radius: 5px;
   background: white; /* 背景つける */
