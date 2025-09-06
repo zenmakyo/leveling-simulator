@@ -156,5 +156,32 @@ targetInput.addEventListener("blur", () => {
   setTimeout(() => { suggestionsBox.style.display = "none"; }, 100);
 });
 
-// 初期値設定
-targetInput.value = "[497] 闇黒龍";
+/**
+ * 現在レベルから目標レベルまでに必要な総経験値を計算
+ * @param {number} currentLv - 現在レベル
+ * @param {number} targetLv - 目標レベル
+ * @param {number} rebirth - 転生回数
+ * @param {number} nextExp - 現在レベルから次のレベルまでの経験値
+ * @returns {number} 総必要経験値
+ */
+function calculateTotalExp(currentLv, targetLv, rebirth, nextExp) {
+  if (currentLv >= targetLv) return 0;
+
+  let totalExp = nextExp; // 現在レベル→次レベル分を加算
+
+  for (let lv = currentLv + 1; lv <= targetLv - 1; lv++) {
+    totalExp += lv * (11 + rebirth) - 3;
+  }
+
+  return totalExp;
+}
+
+// HTMLの入力要素から値を取得して計算
+function getTotalExpFromInputs() {
+  const currentLv = parseInt(document.getElementById("currentLevel").value) || 0;
+  const targetLv = parseInt(document.getElementById("targetLevel").value) || 0;
+  const nextExp = parseInt(document.getElementById("nextExp").value) || 0;
+  const rebirth = parseInt(document.getElementById("rebirth").value) || 0;
+
+  return calculateTotalExp(currentLv, targetLv, rebirth, nextExp);
+}
