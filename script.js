@@ -64,6 +64,12 @@ document.addEventListener("DOMContentLoaded", () => {
   abilityRadios2.forEach(r => r.addEventListener("change", updateOptions));
 });
 
+/* 討伐対象のみリセット */
+document.getElementById("resetTargetBtn").addEventListener("click", () => {
+  targetInput.value = "";             // 入力を空に
+  suggestionsBox.style.display = "none"; // 候補を非表示
+});
+
 /* 討伐対象候補 */
 const targetExpTable = {
   "[497] 闇黒龍": 497, "[326] 叛逆の断罪者": 326, "[275] 盲鬼ト浮鬼": 275,
