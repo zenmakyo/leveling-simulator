@@ -190,7 +190,6 @@ if (remainExp >= 0) {
     document.getElementById("currentLvDisplay").textContent = curLv;
     document.getElementById("targetLvDisplay").textContent = tarLv;
     document.getElementById("numBattlesDisplay").textContent = numBattles;
-    document.getElementById("nextExpDisplay").textContent = nextLvExp;
     document.getElementById("coinDisplay").textContent = totalCoins;
   });
 
