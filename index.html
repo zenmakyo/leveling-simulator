@@ -116,14 +116,14 @@
   <p id="result">ここに結果が表示されます</p>
 
 <div id="resultBox" class="resultBox" style="display:none;">
-  <p id="resultLevel">Lv [入力値] 〜 Lv [入力値] まで</p>
-  <p id="resultCount">およそ [計算結果] 回です！</p>
-  <p id="resultNext">Next [計算結果] Exp</p>
+  <p id="resultLevel">Lv <span id="currentLvDisplay"></span> 〜 Lv <span id="targetLvDisplay"></span> まで</p>
+  <p id="resultCount">およそ <span id="numBattlesDisplay"></span> 回です！</p>
+  <p id="resultNext">Next <span id="nextExpDisplay"></span> Exp</p>
   <div id="fractionWarning" style="color: red; margin-top: 0.5em; display: none;">
     ※ 目標レベルを超えてレベルアップします
   </div>
   <hr>
-  <p id="resultCoin">必要コイン数：[計算結果]</p>
+  <p id="resultCoin">必要コイン数：<span id="coinDisplay"></span></p>
 </div>
 
   <script src="script.js"></script>
