@@ -69,39 +69,53 @@ button.adjustBtn {
   box-sizing: border-box;
 }
 
+/* 親を横並びにする（ラベルと入力が1行に並ぶ） */
 .targetBox {
-  margin-top: 1em;
   display: flex;
-  position: relative;
+  align-items: center;   /* 垂直方向中央揃え */
+  gap: 0.5em;            /* ラベルと入力の間隔 */
+  flex-wrap: nowrap;     /* 折返しさせたくない場合 */
 }
 
+/* ラベルが改行されないようにする */
+.targetLabel {
+  white-space: nowrap;
+  flex: 0 0 auto; /* 固定幅扱い（必要なら幅指定） */
+}
+
+/* 入力と候補を包むラッパー（候補を入力に合わせる） */
+.inputWrapper {
+  position: relative;
+  width: 270px;       /* 固定幅にするならここ。可変にしたければ下参照 */
+  flex: 0 0 auto;
+}
+
+/* 入力欄はラッパー幅に合わせる */
 .targetInput {
-  text-align: left;
-  font-size: 16px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
   height: 30px;
-  width: 270px;
-  margin-left: 0.1em;
   padding: 5px;
   border: 1px solid #dcdcdc;
   border-radius: 5px;
-  box-sizing: border-box;
-  display: block;
+  text-align: left;   /* 入力を左寄せ */
 }
 
+/* 候補リストはラッパー（＝入力欄）の真下にピッタリ */
 .targetSuggestions {
-  text-align: left;
   position: absolute;
-  top: 100%;
+  top: calc(100% + 4px);
   left: 0;
   width: 100%;
-  border: 1px solid #c0c0c0;
-  border-radius: 5px;
-  display: none;
   max-height: 200px;
   overflow-y: auto;
-  font-size: 16px;
+  border: 1px solid #c0c0c0;
+  border-radius: 5px;
+  background: #fff;
+  display: none;      /* JSで表示/非表示を切替 */
   z-index: 1000;
-  background-color: #ffffff;
+  text-align: left;
 }
 
 .targetSuggestions div {
