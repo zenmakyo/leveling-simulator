@@ -72,6 +72,33 @@ button.adjustBtn {
   color: #000000;
 }
 
+.boostBox {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 0.5em;
+}
+
+.boostBox input[type="radio"] {
+  display: none; /* ボタンはラベルで操作 */
+}
+
+.boostBox label {
+  padding: 5px 15px;
+  background-color: #dcdcdc;
+  border: 1px solid #a9a9a9;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: 0.2s;
+}
+
+.boostBox label:has(input[type="radio"]:checked) {
+  background-color: #000080;
+  border-color: #87ceeb;
+  color: #fff;
+}
+
 .targetBox {
   margin-top: 1em;
   display: flex;
