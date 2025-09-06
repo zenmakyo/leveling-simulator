@@ -96,7 +96,7 @@ const targetExpTable = {
   "[29] 魔女の森の梟": 29,
   "[20] お化け提灯": 20,
   "[7] トゲウサギ": 7,
-  "[5] コブンネズミ": 5,
+  "[5] コブンネズミ": 5
 };
 
 const wordList = Object.keys(targetExpTable);
