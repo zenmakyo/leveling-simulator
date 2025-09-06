@@ -196,6 +196,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // ブースト解除
     document.querySelectorAll('input[name="boost"]').forEach(r => r.checked = false);
 
+    // 討伐対象の入力欄をクリア
+    targetInput.value = "";
+    
     // 計算結果非表示
     document.getElementById("resultBox").style.display = "none";
     fractionWarning.style.display = "none";
