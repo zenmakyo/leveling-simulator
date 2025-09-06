@@ -129,6 +129,18 @@ document.addEventListener("DOMContentLoaded", () => {
     return Math.ceil(targetExp * itemMultiplier * (1 + totalPercent / 100) * boostMultiplier);
   }
 
+  /* ブーストボタンのオンオフ */
+  const boostRadios = document.querySelectorAll('input[name="boost"]');
+
+boostRadios.forEach(radio => {
+  radio.addEventListener("click", () => {
+    if (radio.wasChecked) {
+      radio.checked = false; // もう一度押したら解除
+    }
+    boostRadios.forEach(r => r.wasChecked = r.checked); // 状態を更新
+  });
+});
+
   /* 計算・表示 */
   document.getElementById("calcBtn").addEventListener("click", () => {
     const curLv = parseInt(currentLevel.value) || 1;
