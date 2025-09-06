@@ -30,30 +30,7 @@ enforceHalfWidthDigits(currentLevel);
 enforceHalfWidthDigits(targetLevel);
 enforceHalfWidthDigits(nextvalue);
 
-/* 点整数の背景色 */
-const rebirthSelect = document.getElementById("rebirthSelect");
-const rebirthOptions = document.getElementById("rebirthOptions");
 
-// 選択ボックスをクリックしたら開閉
-rebirthSelect.addEventListener("click", () => {
-  rebirthOptions.style.display = rebirthOptions.style.display === "block" ? "none" : "block";
-});
-
-// オプション選択
-rebirthOptions.querySelectorAll("div").forEach(option => {
-  option.addEventListener("click", () => {
-    rebirthSelect.textContent = option.textContent + " ▼";
-    rebirthSelect.dataset.value = option.dataset.value; // JSで値を取得可能
-    rebirthOptions.style.display = "none";
-  });
-});
-
-// 外側クリックで閉じる
-document.addEventListener("click", e => {
-  if (!rebirthSelect.contains(e.target) && !rebirthOptions.contains(e.target)) {
-    rebirthOptions.style.display = "none";
-  }
-});
 
 /* 強化値と参加枠数の表示 */
 function updateOptions() {
