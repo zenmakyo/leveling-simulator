@@ -203,6 +203,7 @@ if (remainExp >= 0) {
     document.getElementById("targetLvDisplay").textContent = tarLv;
     document.getElementById("numBattlesDisplay").textContent = numBattles;
     document.getElementById("coinDisplay").textContent = totalCoins;
+    document.getElementById("result").style.display = "none";
   });
 
   /* リセットボタン */
@@ -233,6 +234,7 @@ if (remainExp >= 0) {
     // 計算結果非表示
     document.getElementById("resultBox").style.display = "none";
     fractionWarning.style.display = "none";
+    document.getElementById("result").style.display = "block"; // リセット時に再表示
     document.getElementById("result").textContent = "ここに結果が表示されます";
 
     updateOptions(); // アビリティ選択後の表示更新
