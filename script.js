@@ -34,16 +34,16 @@ enforceHalfWidthDigits(nextvalue);
 const rebirth = document.getElementById("rebirth");
 
 const rebirthColors = {
-  "0": "#dcdddd",
-  "1": "#bbc8e6",
-  "2": "#2ca9e1",
-  "3": "#66ff66",
-  "4": "#ffff00",
-  "5": "#ffcc00",
-  "6": "#ff9900",
-  "7": "#cc0000",
-  "8": "#ff33cc",
-  "9": "#9900cc"
+  "0": "rgba(220, 221, 221, 0.5)",
+  "1": "rgba(187, 200, 230, 0.5)",
+  "2": "rgba(44, 169, 225, 0.5)",
+  "3": "rgba(102, 255, 102, 0.5)",
+  "4": "rgba(255, 255, 0, 0.5)",
+  "5": "rgba(255, 204, 0, 0.5)",
+  "6": "rgba(255, 153, 0, 0.5)",
+  "7": "rgba(204, 0, 0, 0.5)",
+  "8": "rgba(255, 51, 204, 0.5)",
+  "9": "rgba(153, 0, 204, 0.5)"
 };
 
 rebirth.addEventListener("change", () => {
