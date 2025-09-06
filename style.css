@@ -77,6 +77,10 @@ button.adjustBtn {
   position: relative;
 }
 
+.inputWrapper {
+  position: relative; /* inputを基準に候補を出す */
+}
+
 .targetInput {
   font-size: 16px;
   height: 30px;
@@ -93,8 +97,7 @@ button.adjustBtn {
   position: absolute;
   top: 100%;
   left: 0;
-  margin-left: 5.2em;
-  width: 270px; /* input と同じ幅にする */
+  width: 100%;
   border: 1px solid #c0c0c0;
   border-radius: 5px;
   background: white; /* 背景つける */
