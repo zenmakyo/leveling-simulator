@@ -4,10 +4,8 @@ document.querySelectorAll(".adjustBtn").forEach(btn => {
     const input = btn.parentElement.querySelector("input[type=number]");
     let value = parseInt(input.value) || 0;
     value += parseInt(btn.dataset.value);
-
     if (value < 1) value = 1;
     if (value > 250) value = 250;
-
     input.value = value;
   });
 });
@@ -39,7 +37,6 @@ const rebirthColors = {
   "8": "rgba(255, 51, 204, 0.5)",
   "9": "rgba(153, 0, 204, 0.5)"
 };
-
 rebirth.addEventListener("change", () => {
   rebirth.style.backgroundColor = rebirthColors[rebirth.value] || "#fff";
 });
@@ -62,12 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
   updateOptions();
   abilityRadios1.forEach(r => r.addEventListener("change", updateOptions));
   abilityRadios2.forEach(r => r.addEventListener("change", updateOptions));
-});
-
-/* 討伐対象のみリセット */
-document.getElementById("resetTargetBtn").addEventListener("click", () => {
-  targetInput.value = "";             // 入力を空に
-  suggestionsBox.style.display = "none"; // 候補を非表示
 });
 
 /* 討伐対象候補 */
@@ -109,7 +100,7 @@ targetInput.addEventListener("input", updateSuggestions);
 targetInput.addEventListener("focus", updateSuggestions);
 targetInput.addEventListener("blur", () => setTimeout(() => { suggestionsBox.style.display = "none"; }, 100));
 
-/* 経験値計算 */
+/* 総必要経験値計算 */
 function calcTotalExp(currentLv, targetLv, rebirth, nextExp) {
   if (currentLv >= targetLv) return 0;
   let total = nextExp;
@@ -120,7 +111,7 @@ function calcTotalExp(currentLv, targetLv, rebirth, nextExp) {
 }
 
 /* 討伐一回あたりの経験値 */
-function calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhanceValue, slotValue, boost) {
+function calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhanceValue, slotValue, boostMultiplier) {
   function abilityMultiplier(val) {
     switch(val){
       case "習熟/記念": return 10;
@@ -131,7 +122,7 @@ function calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhance
     }
   }
   const totalPercent = abilityMultiplier(ability1) + abilityMultiplier(ability2);
-  return Math.ceil(targetExp * itemMultiplier * boost * (1 + totalPercent / 100));
+  return Math.ceil(targetExp * itemMultiplier * (1 + totalPercent / 100) * boostMultiplier);
 }
 
 /* 計算・表示 */
@@ -144,12 +135,12 @@ document.getElementById("calcBtn").addEventListener("click", () => {
   const itemMultiplier = parseInt(document.querySelector('input[name="item"]:checked')?.value) || 1;
   const ability1 = document.querySelector('input[name="ability1"]:checked')?.value || "none";
   const ability2 = document.querySelector('input[name="ability2"]:checked')?.value || "none";
-  const enhanceVal = parseInt(document.getElementById("enhanceValue").value) || 20;
-  const slotVal = parseFloat(document.getElementById("slotValue").value) || 4;
-  const boost = parseFloat(document.querySelector('input[name="boost"]:checked')?.value) || 1;
+  const enhanceVal = parseInt(document.getElementById("enhanceValue").value) || 0;
+  const slotVal = parseFloat(document.getElementById("slotValue").value) || 1;
+  const boostMultiplier = parseFloat(document.querySelector('input[name="boost"]:checked')?.value) || 1;
 
   const totalExpNeeded = calcTotalExp(curLv, tarLv, reb, next);
-  const expPerBattle = calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhanceVal, slotVal, boost);
+  const expPerBattle = calcExpPerBattle(targetExp, itemMultiplier, ability1, ability2, enhanceVal, slotVal, boostMultiplier);
 
   const numBattles = Math.ceil(totalExpNeeded / expPerBattle);
   const obtainedExp = numBattles * expPerBattle;
@@ -158,61 +149,23 @@ document.getElementById("calcBtn").addEventListener("click", () => {
   const targetLevelNext = tarLv * (11 + reb) - 3;
   const remainingNext = targetLevelNext - fraction;
 
+  // 警告＋超過レベル計算
+  let warningText = "";
+  if (remainingNext < 0) {
+    let extraExp = Math.abs(remainingNext);
+    let levelUp = tarLv;
+    while (true) {
+      const nextLvExp = (levelUp + 1) * (11 + reb) - 3;
+      if (extraExp >= nextLvExp) {
+        extraExp -= nextLvExp;
+        levelUp++;
+      } else break;
+    }
+    warningText = `※ 目標レベルを超えてレベルアップします\n（レベル ${levelUp} まで上がります）`;
+  }
+
   // 表示
   document.getElementById("currentLvDisplay").textContent = curLv;
   document.getElementById("targetLvDisplay").textContent = tarLv;
   document.getElementById("numBattlesDisplay").textContent = numBattles;
-  document.getElementById("nextExpDisplay").textContent = Math.abs(remainingNext);
-  document.getElementById("fractionWarning").style.display = remainingNext < 0 ? "block" : "none";
-  document.getElementById("coinDisplay").textContent = Math.ceil(numBattles / 5);
-
-  document.getElementById("resultBox").style.display = "block";
-  document.getElementById("result").style.display = "none";
-});
-
-/* ブーストボタン切替 */
-const boostButtons = document.querySelectorAll('input[name="boost"]');
-boostButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    if (btn.checked && btn.classList.contains("active")) {
-      btn.checked = false;
-      btn.classList.remove("active");
-    } else {
-      boostButtons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-    }
-  });
-});
-
-/* リセット */
-document.getElementById("resetBtn").addEventListener("click", () => {
-  // 入力欄リセット
-  currentLevel.value = "";
-  targetLevel.value = "";
-  nextExp.value = "";
-  targetInput.value = "";
-  rebirth.value = "0";
-  rebirth.style.backgroundColor = rebirthColors["0"];
-
-  // アイテム：章なし
-  document.querySelector('input[name="item"][value="1"]').checked = true;
-
-  // 装備：なし・なし
-  document.querySelector('input[name="ability1"][value="none"]').checked = true;
-  document.querySelector('input[name="ability2"][value="none"]').checked = true;
-
-  // 強化値・参加枠数を初期値に戻す
-  document.getElementById("enhanceValue").value = 20;
-  document.getElementById("slotValue").value = 4;
-
-  // ブースト解除
-  boostButtons.forEach(b => {
-    b.checked = false;
-    b.classList.remove("active");
-  });
-
-  // 表示リセット
-  document.getElementById("resultBox").style.display = "none";
-  document.getElementById("fractionWarning").style.display = "none";
-  document.getElementById("result").style.display = "block";
-});
+  document.getElementById("nextExpDisplay").textContent =
