@@ -161,3 +161,31 @@ document.getElementById("calcBtn").addEventListener("click", () => {
     }
     warningText = `Lv ${levelUp} まで上がります！`;
     document.getElementBy
+
+  /* リセットボタン */
+document.getElementById("resetBtn").addEventListener("click", () => {
+  currentLevel.value = 1;
+  targetLevel.value = 1;
+  nextExp.value = 0;
+  rebirth.value = 0;
+  rebirth.style.backgroundColor = rebirthColors["0"];
+
+  // アイテムは「章なし」を選択
+  document.querySelectorAll('input[name="item"]').forEach(r => r.checked = r.value === "1"); // 章なしがvalue=1なら
+
+  // アビリティは「なしなし」を選択
+  document.querySelectorAll('input[name="ability1"]').forEach(r => r.checked = r.value === "none");
+  document.querySelectorAll('input[name="ability2"]').forEach(r => r.checked = r.value === "none");
+
+  // 強化値・参加枠数初期値
+  document.getElementById("enhanceValue").value = 20;
+  document.getElementById("slotValue").value = 4;
+
+  // ブースト解除
+  document.querySelectorAll('input[name="boost"]').forEach(r => r.checked = false);
+
+  // 計算結果非表示
+  document.getElementById("resultBox").style.display = "none";
+  document.getElementById("fractionWarning").style.display = "none";
+  document.getElementById("result").textContent = "ここに結果が表示されます";
+});
