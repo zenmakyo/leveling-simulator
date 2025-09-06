@@ -187,7 +187,6 @@ if (remainExp >= 0) {
 
     // 結果表示
     document.getElementById("resultBox").style.display = "block";
-    document.getElementById("result").textContent = `討伐対象: ${targetInput.value}`;
     document.getElementById("currentLvDisplay").textContent = curLv;
     document.getElementById("targetLvDisplay").textContent = tarLv;
     document.getElementById("numBattlesDisplay").textContent = numBattles;
