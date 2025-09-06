@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+sdocument.addEventListener("DOMContentLoaded", () => {
 
   /* レベル入力 */
   document.querySelectorAll(".adjustBtn").forEach(btn => {
@@ -154,31 +154,36 @@ document.addEventListener("DOMContentLoaded", () => {
     const remainingNext = targetLevelNext - fraction;
 
     /* 警告 */
-    const fractionWarning = document.getElementById("fractionWarning");
-let nextLvExp;
+const fractionWarning = document.getElementById("fractionWarning");
 let displayLevel = tarLv;
+let nextForTarget = tarLv * (11 + reb) - 3;
 
-if (fraction >= 0) {
-  // 目標レベルに達してもまだ次のレベルに到達していない
-  nextLvExp = fraction;
+// remain = 目標レベルのNext - 端数
+let remain = nextForTarget - fraction;
+
+if (remain >= 0) {
+  // --- 通常時 ---
+  document.getElementById("resultNext").style.display = "block";
+  document.getElementById("nextExpDisplay").textContent = remain;
   fractionWarning.style.display = "none";
 } else {
-  // 超過経験値がある場合
-  let extraExp = Math.abs(fraction);
-  while (true) {
-    const expForNext = (displayLevel + 1) * (11 + reb) - 3;
-    if (extraExp >= expForNext) {
-      extraExp -= expForNext;
-      displayLevel++;
-    } else break;
-  }
-  nextLvExp = extraExp;
-  fractionWarning.style.display = "block";
-  fractionWarning.innerHTML = `※ 目標レベルを超えてレベルアップします<br>Lv ${displayLevel} まで上がります！`;
-}
+  // --- 超過時 ---
+  document.getElementById("resultNext").style.display = "none";
 
-// Next表示更新
-document.getElementById("nextExpDisplay").textContent = nextLvExp;
+  let over = remain; // 負の値
+  while (over < 0) {
+    displayLevel++;
+    let nextForLevel = displayLevel * (11 + reb) - 3;
+    over += nextForLevel;
+  }
+
+  fractionWarning.style.display = "block";
+  fractionWarning.innerHTML = `
+    ※ 目標レベルを超えてレベルアップします！<br>
+    推定Lv ${displayLevel}<br>
+    Next ${over} Exp
+  `;
+}
 
 
     // 結果表示
