@@ -13,6 +13,23 @@ document.querySelectorAll(".adjustBtn").forEach(btn => {
   });
 });
 
+// 半角数字のみ許可
+function enforceHalfWidthDigits(input) {
+  input.addEventListener("input", () => {
+    // 入力値から半角数字以外を削除
+    input.value = input.value.replace(/[^0-9]/g, "");
+  });
+}
+
+// 対象のinputを指定
+const currentLevel = document.getElementById("currentLevel");
+const targetLevel = document.getElementById("targetLevel");
+const nextvalue = document.getElementById("nextvalue");
+
+enforceHalfWidthDigits(currentLevel);
+enforceHalfWidthDigits(targetLevel);
+enforceHalfWidthDigits(nextvalue);
+
 /* 強化値と参加枠数の表示 */
 function updateOptions() {
   const selected1 = document.querySelector('input[name="ability1"]:checked')?.value;
