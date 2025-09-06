@@ -177,9 +177,8 @@ if (remainExp >= 0) {
 
   fractionWarning.style.display = "block";
   fractionWarning.innerHTML = `
-    ※ 目標レベルを超えてレベルアップします！<br>
-    推定Lv ${displayLevel}<br>
-    Next ${overExp} Exp
+    ※ 目標レベルを超えてレベルアップします<br>
+    推定Lv ${displayLevel} , Next ${overExp} Exp
   `;
 }
 
