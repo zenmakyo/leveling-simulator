@@ -155,3 +155,6 @@ targetInput.addEventListener("focus", updateSuggestions);
 targetInput.addEventListener("blur", () => {
   setTimeout(() => { suggestionsBox.style.display = "none"; }, 100);
 });
+
+// 初期値設定
+targetInput.value = "[497] 闇黒龍";
