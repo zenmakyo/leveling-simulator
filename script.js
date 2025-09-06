@@ -213,3 +213,29 @@ function calcNumBattles(totalExpNeeded, expPerBattle) {
   // 必要経験値を1回あたりの経験値で割って切り上げ
   return Math.ceil(totalExpNeeded / expPerBattle);
 }
+
+function calcBattleResults(totalExpNeeded, expPerBattle, nextExpForTarget) {
+  // 必要討伐回数
+  const numBattles = Math.ceil(totalExpNeeded / expPerBattle);
+
+  // 獲得経験値
+  const obtainedExp = numBattles * expPerBattle;
+
+  // 端数
+  const fraction = obtainedExp - totalExpNeeded;
+
+  // Next残量
+  const remainingNext = nextExpForTarget - fraction;
+
+  // 警告判定
+  const warning = remainingNext < 0;
+
+  return {
+    numBattles,
+    obtainedExp,
+    fraction,
+    remainingNext,
+    warning
+  };
+}
+
