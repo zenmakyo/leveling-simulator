@@ -1,3 +1,19 @@
+/* レベル入力 */
+document.querySelectorAll(".adjustBtn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const input = btn.parentElement.querySelector("input[type=number]");
+    let value = parseInt(input.value) || 0;
+    value += parseInt(btn.dataset.value);
+
+    // 範囲チェック
+    if (value < 1) value = 1;
+    if (value > 250) value = 250;
+
+    input.value = value;
+  });
+});
+
+/* 強化値と参加枠数の表示 */
 function updateOptions() {
   const selected1 = document.querySelector('input[name="ability1"]:checked')?.value;
   const selected2 = document.querySelector('input[name="ability2"]:checked')?.value;
@@ -38,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
   abilityRadios2.forEach(radio => radio.addEventListener("change", updateOptions));
 });
 
+/* 討伐対象 */
 const targetExpTable = {
   "[497] 闇黒龍": 497,
   "[326] 叛逆の断罪者": 326,
