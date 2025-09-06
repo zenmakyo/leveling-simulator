@@ -184,7 +184,7 @@ if (fraction >= 0) {
     document.getElementById("currentLvDisplay").textContent = curLv;
     document.getElementById("targetLvDisplay").textContent = tarLv;
     document.getElementById("numBattlesDisplay").textContent = numBattles;
-    document.getElementById("nextExpDisplay").textContent = next;
+    document.getElementById("nextExpDisplay").textContent = nextLvExp;
   });
 
   /* リセットボタン */
