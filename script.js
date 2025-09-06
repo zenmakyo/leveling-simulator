@@ -262,3 +262,17 @@ function displayResults(currentLevel, targetLevel, totalExpNeeded, expPerBattle,
   // 結果ボックス表示
   document.getElementById("resultBox").style.display = "block";
 }
+
+document.getElementById("calcBtn").addEventListener("click", () => {
+  const currentLevel = parseInt(document.getElementById("currentLevel").value) || 1;
+  const targetLevel = parseInt(document.getElementById("targetLevel").value) || 1;
+  const nextExp = parseInt(document.getElementById("nextExp").value) || 0;
+  const rebirth = parseInt(document.getElementById("rebirth").value) || 0;
+
+  // ここで totalExpNeeded と expPerBattle を計算
+  const totalExpNeeded = calcTotalExp(currentLevel, targetLevel, rebirth, nextExp); // 既存関数
+  const expPerBattle = calcExpPerBattle(); // 既存関数
+
+  // displayResults に渡して表示
+  displayResults(currentLevel, targetLevel, totalExpNeeded, expPerBattle, nextExp);
+});
