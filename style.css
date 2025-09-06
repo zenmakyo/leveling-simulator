@@ -58,15 +58,40 @@ button.adjustBtn {
   cursor: pointer;
 }
 
-#rebirth {
+.rebirthBox {
+  position: relative;
+  display: inline-block;
+  margin-left: 2em;
   font-size: 16px;
-  padding: 5px;
-  height: 28px;
-  margin: 0 1em;
-  text-align: center;
-  border: 1px solid #c0c0c0;
+}
+
+.rebirthSelect {
+  padding: 5px 10px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+  background-color: #fff;
+  min-width: 100px;
+}
+
+.rebirthOptions {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.rebirthOptions div {
+  padding: 5px 10px;
+  cursor: pointer;
+  user-select: none;
 }
 
 .targetBox {
