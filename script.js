@@ -1,18 +1,72 @@
-const targetBtn = document.getElementById("targetBtn");
-const targetDropdown = document.getElementById("targetDropdown");
-const targetSearch = document.getElementById("targetSearch");
-const targetList = document.getElementById("targetList");
-const fractionWarning = document.getElementById("fractionWarning");
-const resultNext = document.getElementById("resultNext");
-const suggestionsBox = document.getElementById("suggestionsBox");
+document.addEventListener("DOMContentLoaded", () => {
 
-let currentTarget = "";
+  /* レベル入力 */
+  document.querySelectorAll(".adjustBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const input = btn.parentElement.querySelector("input[type=number]");
+      let value = parseInt(input.value) || 0;
+      value += parseInt(btn.dataset.value);
+      if (value < 1) value = 1;
+      if (value > 250) value = 250;
+      input.value = value;
+    });
+  });
 
-function setTarget(name){
-  currentTarget = name;
-}
+  // 半角数字のみ許可
+  function enforceHalfWidthDigits(input) {
+    input.addEventListener("input", () => {
+      input.value = input.value.replace(/[^0-9]/g, "");
+    });
+  }
 
-/* 討伐対象候補 */
+  const currentLevel = document.getElementById("currentLevel");
+  const targetLevel = document.getElementById("targetLevel");
+  const nextExp = document.getElementById("nextExp");
+  [currentLevel, targetLevel, nextExp].forEach(enforceHalfWidthDigits);
+
+  /* 転生数に色付け */
+  const rebirth = document.getElementById("rebirth");
+  const rebirthColors = {
+    "0": "rgba(220, 221, 221, 0.5)",
+    "1": "rgba(187, 200, 230, 0.5)",
+    "2": "rgba(44, 169, 225, 0.5)",
+    "3": "rgba(102, 255, 102, 0.5)",
+    "4": "rgba(255, 255, 0, 0.5)",
+    "5": "rgba(255, 204, 0, 0.5)",
+    "6": "rgba(255, 153, 0, 0.5)",
+    "7": "rgba(204, 0, 0, 0.5)",
+    "8": "rgba(255, 51, 204, 0.5)",
+    "9": "rgba(153, 0, 204, 0.5)"
+  };
+  rebirth.addEventListener("change", () => {
+    rebirth.style.backgroundColor = rebirthColors[rebirth.value] || "#fff";
+  });
+
+  /* 討伐対象のみリセット */
+document.getElementById("resetTargetBtn").addEventListener("click", () => {
+  targetInput.value = "";                   // 入力を空に
+  suggestionsBox.style.display = "none";   // 候補を非表示
+  document.getElementById("customExpBox").style.display = "none"; // カスタム経験値欄も非表示
+});
+
+  /* 強化値・参加枠数表示 */
+  const abilityRadios1 = document.querySelectorAll('input[name="ability1"]');
+  const abilityRadios2 = document.querySelectorAll('input[name="ability2"]');
+  const enhanceBox = document.getElementById("enhanceBox");
+  const slotBox = document.getElementById("slotBox");
+
+  function updateOptions() {
+    const selected1 = document.querySelector('input[name="ability1"]:checked')?.value;
+    const selected2 = document.querySelector('input[name="ability2"]:checked')?.value;
+    enhanceBox.style.display = (selected1 === "博識" || selected2 === "博識" || selected1 === "共栄" || selected2 === "共栄") ? "flex" : "none";
+    slotBox.style.display = (selected1 === "共栄" || selected2 === "共栄") ? "flex" : "none";
+  }
+
+  updateOptions();
+  abilityRadios1.forEach(r => r.addEventListener("change", updateOptions));
+  abilityRadios2.forEach(r => r.addEventListener("change", updateOptions));
+
+  /* 討伐対象候補 */
   const targetExpTable = {
     "[497] 闇黒龍": 497, "[326] 叛逆の断罪者": 326, "[275] 盲鬼ト浮鬼": 275, "[261] 砂漠の亡者":261, "[250] 終焉の指揮者": 250, "[222] ポセイドン": 222, "[196] 死を告げる者": 196, "[183] 疎まれし者": 183, "[169] 刑罰を記すもの": 169, "[161] ロックイーター": 161,
     "[147] カトブレパス": 147, "[134] 海太郎": 134, "[122] 意思ある肖像": 122, "[106] ウッビィ": 106, "[94] スキュラ": 94, "[78] 鼠小組": 78, "[59] 画匠カミーリオ": 59, "[43] 川太郎": 43, "[29] 魔女の森の梟": 29, "[20] お化け提灯": 20,
@@ -97,79 +151,11 @@ function setTarget(name){
     "[35] 幼き亡霊（曲名♪深夜背後に）": 35, "[33] ケットシー・魔（曲名♪いたずら好き）": 33, "[29] 隠神刑部（曲名♪森の若大将）": 29, "[10] ゴールデンゴーレム（魔導体G.Q）": 10
   };
   const wordList = ["カスタム経験値", ...Object.keys(targetExpTable)];
-
-document.addEventListener("DOMContentLoaded", () => {
-
-  /* レベル入力 */
-  document.querySelectorAll(".adjustBtn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const input = btn.parentElement.querySelector("input[type=number]");
-      let value = parseInt(input.value) || 0;
-      value += parseInt(btn.dataset.value);
-      if (value < 1) value = 1;
-      if (value > 250) value = 250;
-      input.value = value;
-    });
-  });
-
-  // 半角数字のみ許可
-  function enforceHalfWidthDigits(input) {
-    input.addEventListener("input", () => {
-      input.value = input.value.replace(/[^0-9]/g, "");
-    });
-  }
-
-  const currentLevel = document.getElementById("currentLevel");
-  const targetLevel = document.getElementById("targetLevel");
-  const nextExp = document.getElementById("nextExp");
-  [currentLevel, targetLevel, nextExp].forEach(enforceHalfWidthDigits);
-
-  /* 転生数に色付け */
-  const rebirth = document.getElementById("rebirth");
-  const rebirthColors = {
-    "0": "rgba(220, 221, 221, 0.5)",
-    "1": "rgba(187, 200, 230, 0.5)",
-    "2": "rgba(44, 169, 225, 0.5)",
-    "3": "rgba(102, 255, 102, 0.5)",
-    "4": "rgba(255, 255, 0, 0.5)",
-    "5": "rgba(255, 204, 0, 0.5)",
-    "6": "rgba(255, 153, 0, 0.5)",
-    "7": "rgba(204, 0, 0, 0.5)",
-    "8": "rgba(255, 51, 204, 0.5)",
-    "9": "rgba(153, 0, 204, 0.5)"
-  };
-  rebirth.addEventListener("change", () => {
-    rebirth.style.backgroundColor = rebirthColors[rebirth.value] || "#fff";
-  });
-
-  /* 討伐対象のみリセット */
-document.getElementById("resetTargetBtn").addEventListener("click", () => {
-  currentTarget = "";                   // 入力を空に
-  suggestionsBox.style.display = "none";   // 候補を非表示
-  document.getElementById("customExpBox").style.display = "none"; // カスタム経験値欄も非表示
-});
-
-  /* 強化値・参加枠数表示 */
-  const abilityRadios1 = document.querySelectorAll('input[name="ability1"]');
-  const abilityRadios2 = document.querySelectorAll('input[name="ability2"]');
-  const enhanceBox = document.getElementById("enhanceBox");
-  const slotBox = document.getElementById("slotBox");
-
-  function updateOptions() {
-    const selected1 = document.querySelector('input[name="ability1"]:checked')?.value;
-    const selected2 = document.querySelector('input[name="ability2"]:checked')?.value;
-    enhanceBox.style.display = (selected1 === "博識" || selected2 === "博識" || selected1 === "共栄" || selected2 === "共栄") ? "flex" : "none";
-    slotBox.style.display = (selected1 === "共栄" || selected2 === "共栄") ? "flex" : "none";
-  }
-
-  updateOptions();
-  abilityRadios1.forEach(r => r.addEventListener("change", updateOptions));
-  abilityRadios2.forEach(r => r.addEventListener("change", updateOptions));
-
   const targetInput = document.getElementById("targetInput");
+  const suggestionsBox = document.querySelector(".targetSuggestions");
 
   function updateSuggestions() {
-    const value = currentTarget.trim().toLowerCase();
+    const value = targetInput.value.trim().toLowerCase();
     const matches = value === "" ? wordList : wordList.filter(w => w.toLowerCase().includes(value));
     suggestionsBox.innerHTML = "";
     if (matches.length > 0) {
@@ -177,7 +163,7 @@ document.getElementById("resetTargetBtn").addEventListener("click", () => {
         const div = document.createElement("div");
         div.textContent = word;
         div.addEventListener("mousedown", () => {
-        currentTarget = word;
+        targetInput.value = word;
         suggestionsBox.style.display = "none";
 
   // 「カスタム経験値」選択時のみ表示
@@ -194,6 +180,10 @@ document.getElementById("resetTargetBtn").addEventListener("click", () => {
       suggestionsBox.style.display = "none";
     }
   }
+
+  targetInput.addEventListener("input", updateSuggestions);
+  targetInput.addEventListener("focus", updateSuggestions);
+  targetInput.addEventListener("blur", () => setTimeout(() => { suggestionsBox.style.display = "none"; }, 100));
 
   /* 総必要経験値計算 */
   function calcTotalExp(currentLv, targetLv, rebirth, nextExp) {
@@ -239,10 +229,10 @@ boostRadios.forEach(radio => {
     const next = parseInt(nextExp.value) || 0;
     const reb = parseInt(rebirth.value) || 0;
     let targetExp;
-      if (currentTarget === "カスタム経験値") {
+      if (targetInput.value === "カスタム経験値") {
         targetExp = parseInt(document.getElementById("customExpInput").value) || 0;
       } else {
-        targetExp = targetExpTable[currentTarget] || 0;
+        targetExp = targetExpTable[targetInput.value] || 0;
       }
     const itemMultiplier = parseInt(document.querySelector('input[name="item"]:checked')?.value) || 1;
     const ability1 = document.querySelector('input[name="ability1"]:checked')?.value || "none";
@@ -265,6 +255,8 @@ boostRadios.forEach(radio => {
     const totalCoins = Math.ceil(numBattles / 5);
 
    /* 警告・Next計算 */
+const fractionWarning = document.getElementById("fractionWarning");
+const resultNext = document.getElementById("resultNext");
 let displayLevel = tarLv;
 let remainExp = tarLv * (11 + reb) - 3 - fraction; // 目標レベルNext - 端数
 
@@ -323,7 +315,7 @@ if (remainExp >= 0) {
     document.querySelectorAll('input[name="boost"]').forEach(r => r.checked = false);
 
     // 討伐対象の入力欄をクリア
-    currentTarget = "";
+    targetInput.value = "";
     
     // 計算結果非表示
     document.getElementById("resultBox").style.display = "none";
@@ -335,42 +327,3 @@ if (remainExp >= 0) {
   });
 
 });
-
-targetBtn.addEventListener("click", () => {
-  targetDropdown.classList.toggle("hidden");
-  renderTargetList(targetSearch.value);
-});
-
-function renderTargetList(filter = "") {
-  targetList.innerHTML = "";
-
-  Object.keys(targetExpTable)
-    .filter(name => name.includes(filter))
-    .forEach(name => {
-
-      const item = document.createElement("div");
-      item.textContent = name;
-      item.className = "targetItem";
-
-      item.addEventListener("click", () => {
-        selectTarget(name);
-      });
-
-      targetList.appendChild(item);
-    });
-}
-
-targetSearch.addEventListener("input", (e) => {
-  renderTargetList(e.target.value);
-});
-
-function selectTarget(name) {
-  targetBtn.textContent = name;
-  targetDropdown.classList.add("hidden");
-  targetSearch.value = "";
-
-  // ★ここが既存ロジック接続
-  setTarget(name); // ←もし無ければ後で合わせる
-}
-
-renderTargetList();
