@@ -3,75 +3,7 @@ const targetDropdown = document.getElementById("targetDropdown");
 const targetSearch = document.getElementById("targetSearch");
 const targetList = document.getElementById("targetList");
 
-document.addEventListener("DOMContentLoaded", () => {
-
-  /* レベル入力 */
-  document.querySelectorAll(".adjustBtn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const input = btn.parentElement.querySelector("input[type=number]");
-      let value = parseInt(input.value) || 0;
-      value += parseInt(btn.dataset.value);
-      if (value < 1) value = 1;
-      if (value > 250) value = 250;
-      input.value = value;
-    });
-  });
-
-  // 半角数字のみ許可
-  function enforceHalfWidthDigits(input) {
-    input.addEventListener("input", () => {
-      input.value = input.value.replace(/[^0-9]/g, "");
-    });
-  }
-
-  const currentLevel = document.getElementById("currentLevel");
-  const targetLevel = document.getElementById("targetLevel");
-  const nextExp = document.getElementById("nextExp");
-  [currentLevel, targetLevel, nextExp].forEach(enforceHalfWidthDigits);
-
-  /* 転生数に色付け */
-  const rebirth = document.getElementById("rebirth");
-  const rebirthColors = {
-    "0": "rgba(220, 221, 221, 0.5)",
-    "1": "rgba(187, 200, 230, 0.5)",
-    "2": "rgba(44, 169, 225, 0.5)",
-    "3": "rgba(102, 255, 102, 0.5)",
-    "4": "rgba(255, 255, 0, 0.5)",
-    "5": "rgba(255, 204, 0, 0.5)",
-    "6": "rgba(255, 153, 0, 0.5)",
-    "7": "rgba(204, 0, 0, 0.5)",
-    "8": "rgba(255, 51, 204, 0.5)",
-    "9": "rgba(153, 0, 204, 0.5)"
-  };
-  rebirth.addEventListener("change", () => {
-    rebirth.style.backgroundColor = rebirthColors[rebirth.value] || "#fff";
-  });
-
-  /* 討伐対象のみリセット */
-document.getElementById("resetTargetBtn").addEventListener("click", () => {
-  currentTarget = "";                   // 入力を空に
-  suggestionsBox.style.display = "none";   // 候補を非表示
-  document.getElementById("customExpBox").style.display = "none"; // カスタム経験値欄も非表示
-});
-
-  /* 強化値・参加枠数表示 */
-  const abilityRadios1 = document.querySelectorAll('input[name="ability1"]');
-  const abilityRadios2 = document.querySelectorAll('input[name="ability2"]');
-  const enhanceBox = document.getElementById("enhanceBox");
-  const slotBox = document.getElementById("slotBox");
-
-  function updateOptions() {
-    const selected1 = document.querySelector('input[name="ability1"]:checked')?.value;
-    const selected2 = document.querySelector('input[name="ability2"]:checked')?.value;
-    enhanceBox.style.display = (selected1 === "博識" || selected2 === "博識" || selected1 === "共栄" || selected2 === "共栄") ? "flex" : "none";
-    slotBox.style.display = (selected1 === "共栄" || selected2 === "共栄") ? "flex" : "none";
-  }
-
-  updateOptions();
-  abilityRadios1.forEach(r => r.addEventListener("change", updateOptions));
-  abilityRadios2.forEach(r => r.addEventListener("change", updateOptions));
-
-  /* 討伐対象候補 */
+/* 討伐対象候補 */
   const targetExpTable = {
     "[497] 闇黒龍": 497, "[326] 叛逆の断罪者": 326, "[275] 盲鬼ト浮鬼": 275, "[261] 砂漠の亡者":261, "[250] 終焉の指揮者": 250, "[222] ポセイドン": 222, "[196] 死を告げる者": 196, "[183] 疎まれし者": 183, "[169] 刑罰を記すもの": 169, "[161] ロックイーター": 161,
     "[147] カトブレパス": 147, "[134] 海太郎": 134, "[122] 意思ある肖像": 122, "[106] ウッビィ": 106, "[94] スキュラ": 94, "[78] 鼠小組": 78, "[59] 画匠カミーリオ": 59, "[43] 川太郎": 43, "[29] 魔女の森の梟": 29, "[20] お化け提灯": 20,
@@ -156,6 +88,75 @@ document.getElementById("resetTargetBtn").addEventListener("click", () => {
     "[35] 幼き亡霊（曲名♪深夜背後に）": 35, "[33] ケットシー・魔（曲名♪いたずら好き）": 33, "[29] 隠神刑部（曲名♪森の若大将）": 29, "[10] ゴールデンゴーレム（魔導体G.Q）": 10
   };
   const wordList = ["カスタム経験値", ...Object.keys(targetExpTable)];
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* レベル入力 */
+  document.querySelectorAll(".adjustBtn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const input = btn.parentElement.querySelector("input[type=number]");
+      let value = parseInt(input.value) || 0;
+      value += parseInt(btn.dataset.value);
+      if (value < 1) value = 1;
+      if (value > 250) value = 250;
+      input.value = value;
+    });
+  });
+
+  // 半角数字のみ許可
+  function enforceHalfWidthDigits(input) {
+    input.addEventListener("input", () => {
+      input.value = input.value.replace(/[^0-9]/g, "");
+    });
+  }
+
+  const currentLevel = document.getElementById("currentLevel");
+  const targetLevel = document.getElementById("targetLevel");
+  const nextExp = document.getElementById("nextExp");
+  [currentLevel, targetLevel, nextExp].forEach(enforceHalfWidthDigits);
+
+  /* 転生数に色付け */
+  const rebirth = document.getElementById("rebirth");
+  const rebirthColors = {
+    "0": "rgba(220, 221, 221, 0.5)",
+    "1": "rgba(187, 200, 230, 0.5)",
+    "2": "rgba(44, 169, 225, 0.5)",
+    "3": "rgba(102, 255, 102, 0.5)",
+    "4": "rgba(255, 255, 0, 0.5)",
+    "5": "rgba(255, 204, 0, 0.5)",
+    "6": "rgba(255, 153, 0, 0.5)",
+    "7": "rgba(204, 0, 0, 0.5)",
+    "8": "rgba(255, 51, 204, 0.5)",
+    "9": "rgba(153, 0, 204, 0.5)"
+  };
+  rebirth.addEventListener("change", () => {
+    rebirth.style.backgroundColor = rebirthColors[rebirth.value] || "#fff";
+  });
+
+  /* 討伐対象のみリセット */
+document.getElementById("resetTargetBtn").addEventListener("click", () => {
+  currentTarget = "";                   // 入力を空に
+  suggestionsBox.style.display = "none";   // 候補を非表示
+  document.getElementById("customExpBox").style.display = "none"; // カスタム経験値欄も非表示
+});
+
+  /* 強化値・参加枠数表示 */
+  const abilityRadios1 = document.querySelectorAll('input[name="ability1"]');
+  const abilityRadios2 = document.querySelectorAll('input[name="ability2"]');
+  const enhanceBox = document.getElementById("enhanceBox");
+  const slotBox = document.getElementById("slotBox");
+
+  function updateOptions() {
+    const selected1 = document.querySelector('input[name="ability1"]:checked')?.value;
+    const selected2 = document.querySelector('input[name="ability2"]:checked')?.value;
+    enhanceBox.style.display = (selected1 === "博識" || selected2 === "博識" || selected1 === "共栄" || selected2 === "共栄") ? "flex" : "none";
+    slotBox.style.display = (selected1 === "共栄" || selected2 === "共栄") ? "flex" : "none";
+  }
+
+  updateOptions();
+  abilityRadios1.forEach(r => r.addEventListener("change", updateOptions));
+  abilityRadios2.forEach(r => r.addEventListener("change", updateOptions));
+
   const targetInput = document.getElementById("targetInput");
 
   function updateSuggestions() {
