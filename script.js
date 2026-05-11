@@ -2,6 +2,15 @@ const targetBtn = document.getElementById("targetBtn");
 const targetDropdown = document.getElementById("targetDropdown");
 const targetSearch = document.getElementById("targetSearch");
 const targetList = document.getElementById("targetList");
+const fractionWarning = document.getElementById("fractionWarning");
+const resultNext = document.getElementById("resultNext");
+const suggestionsBox = document.getElementById("suggestionsBox");
+
+let currentTarget = "";
+
+function setTarget(name){
+  currentTarget = name;
+}
 
 /* 討伐対象候補 */
   const targetExpTable = {
@@ -256,8 +265,6 @@ boostRadios.forEach(radio => {
     const totalCoins = Math.ceil(numBattles / 5);
 
    /* 警告・Next計算 */
-const fractionWarning = document.getElementById("fractionWarning");
-const resultNext = document.getElementById("resultNext");
 let displayLevel = tarLv;
 let remainExp = tarLv * (11 + reb) - 3 - fraction; // 目標レベルNext - 端数
 
