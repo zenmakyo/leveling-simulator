@@ -1,3 +1,8 @@
+const targetBtn = document.getElementById("targetBtn");
+const targetDropdown = document.getElementById("targetDropdown");
+const targetSearch = document.getElementById("targetSearch");
+const targetList = document.getElementById("targetList");
+
 document.addEventListener("DOMContentLoaded", () => {
 
   /* レベル入力 */
@@ -44,7 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* 討伐対象のみリセット */
 document.getElementById("resetTargetBtn").addEventListener("click", () => {
-  targetInput.value = "";                   // 入力を空に
+  currentTarget = "";                   // 入力を空に
   suggestionsBox.style.display = "none";   // 候補を非表示
   document.getElementById("customExpBox").style.display = "none"; // カスタム経験値欄も非表示
 });
@@ -152,10 +157,9 @@ document.getElementById("resetTargetBtn").addEventListener("click", () => {
   };
   const wordList = ["カスタム経験値", ...Object.keys(targetExpTable)];
   const targetInput = document.getElementById("targetInput");
-  const suggestionsBox = document.querySelector(".targetSuggestions");
 
   function updateSuggestions() {
-    const value = targetInput.value.trim().toLowerCase();
+    const value = currentTarget.trim().toLowerCase();
     const matches = value === "" ? wordList : wordList.filter(w => w.toLowerCase().includes(value));
     suggestionsBox.innerHTML = "";
     if (matches.length > 0) {
@@ -163,7 +167,7 @@ document.getElementById("resetTargetBtn").addEventListener("click", () => {
         const div = document.createElement("div");
         div.textContent = word;
         div.addEventListener("mousedown", () => {
-        targetInput.value = word;
+        currentTarget = word;
         suggestionsBox.style.display = "none";
 
   // 「カスタム経験値」選択時のみ表示
@@ -180,10 +184,6 @@ document.getElementById("resetTargetBtn").addEventListener("click", () => {
       suggestionsBox.style.display = "none";
     }
   }
-
-  targetInput.addEventListener("input", updateSuggestions);
-  targetInput.addEventListener("focus", updateSuggestions);
-  targetInput.addEventListener("blur", () => setTimeout(() => { suggestionsBox.style.display = "none"; }, 100));
 
   /* 総必要経験値計算 */
   function calcTotalExp(currentLv, targetLv, rebirth, nextExp) {
@@ -229,10 +229,10 @@ boostRadios.forEach(radio => {
     const next = parseInt(nextExp.value) || 0;
     const reb = parseInt(rebirth.value) || 0;
     let targetExp;
-      if (targetInput.value === "カスタム経験値") {
+      if (currentTarget === "カスタム経験値") {
         targetExp = parseInt(document.getElementById("customExpInput").value) || 0;
       } else {
-        targetExp = targetExpTable[targetInput.value] || 0;
+        targetExp = targetExpTable[currentTarget] || 0;
       }
     const itemMultiplier = parseInt(document.querySelector('input[name="item"]:checked')?.value) || 1;
     const ability1 = document.querySelector('input[name="ability1"]:checked')?.value || "none";
@@ -315,7 +315,7 @@ if (remainExp >= 0) {
     document.querySelectorAll('input[name="boost"]').forEach(r => r.checked = false);
 
     // 討伐対象の入力欄をクリア
-    targetInput.value = "";
+    currentTarget = "";
     
     // 計算結果非表示
     document.getElementById("resultBox").style.display = "none";
@@ -327,3 +327,42 @@ if (remainExp >= 0) {
   });
 
 });
+
+targetBtn.addEventListener("click", () => {
+  targetDropdown.classList.toggle("hidden");
+  renderTargetList(targetSearch.value);
+});
+
+function renderTargetList(filter = "") {
+  targetList.innerHTML = "";
+
+  Object.keys(targetExpTable)
+    .filter(name => name.includes(filter))
+    .forEach(name => {
+
+      const item = document.createElement("div");
+      item.textContent = name;
+      item.className = "targetItem";
+
+      item.addEventListener("click", () => {
+        selectTarget(name);
+      });
+
+      targetList.appendChild(item);
+    });
+}
+
+targetSearch.addEventListener("input", (e) => {
+  renderTargetList(e.target.value);
+});
+
+function selectTarget(name) {
+  targetBtn.textContent = name;
+  targetDropdown.classList.add("hidden");
+  targetSearch.value = "";
+
+  // ★ここが既存ロジック接続
+  setTarget(name); // ←もし無ければ後で合わせる
+}
+
+renderTargetList();
