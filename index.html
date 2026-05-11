@@ -56,24 +56,16 @@
   </div>
   
   <div class="targetBox">
-  <label>討伐対象：</label>
+   <label for="targetInput">討伐対象：</label>
+   <div class="inputWrapper">
+    <input type="text" id="targetInput" class="targetInput" autocomplete="off">
+    <div class="targetSuggestions"></div>
 
-  <div class="dropdownWrapper">
-    <button id="targetBtn" type="button" class="targetBtn">
-      未選択
-    </button>
-
-    <div id="targetDropdown" class="dropdown hidden">
-
-      <!-- 検索ボックス -->
-      <input type="text" id="targetSearch" placeholder="検索...">
-
-      <!-- リスト -->
-      <div id="targetList" class="targetList"></div>
-
-    </div>
+     <div id="customExpBox" style="display:none; margin-top:5px;">
+     <label>経験値の入力欄： <input type="number" id="customExpInput" min="1" step="1"></label>
+     </div>
   </div>
-</div>
+  </div>
 
   <div class="itemBox">
   <input type="radio" id="item1" name="item" value="1" checked>
