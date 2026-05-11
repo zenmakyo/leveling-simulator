@@ -122,63 +122,36 @@ button.adjustBtn {
   margin-left: 0.5em;
 }
 
-.targetBtn {
+.targetInput {
   font-size: 16px;
-  width: 270px;
   height: 30px;
+  width: 270px;
   padding: 5px;
-  text-align: left;
-  border: 1px solid #c0c0c0;
+  border: 1px solid #dcdcdc;
   border-radius: 5px;
-  background-color: white;
-  cursor: pointer;
+  box-sizing: border-box;
+  text-align: left; /* 入力テキストを左寄せ */
 }
 
-.dropdownWrapper {
-  position: relative;
-  margin-left: 0.5em;
-}
-
-.dropdown {
+.targetSuggestions {
   position: absolute;
   top: 100%;
   left: 0;
-  width: 270px;
-  background: white;
+  width: 100%;
   border: 1px solid #c0c0c0;
   border-radius: 5px;
-  z-index: 1000;
-  max-height: 250px;
-  overflow: hidden;
-}
-
-#targetSearch {
-  width: 100%;
-  font-size: 14px;
-  padding: 5px;
-  border: none;
-  border-bottom: 1px solid #c0c0c0;
-  box-sizing: border-box;
-  outline: none;
-}
-
-#targetList {
+  background: white; /* 背景つける */
+  display: none;
   max-height: 200px;
   overflow-y: auto;
+  font-size: 16px;
+  z-index: 1000;
+  text-align: left; /* 候補文字も左寄せ */
 }
 
-.targetItem {
+.targetSuggestions div {
   padding: 5px;
   cursor: pointer;
-  text-align: left;
-}
-
-.targetItem:hover {
-  background-color: #f0f0f0;
-}
-
-.hidden {
-  display: none;
 }
 
 .itemBox {
